@@ -2,24 +2,23 @@ project:
   type: website
 
 website:
-  title: "BIOSCAPE DEMO - BIOSPACE25"
-  site-url: https://nasa-openscapes.github.io/2023-ssc
-  repo-url: https://github.com/NASA-Openscapes/2023-ssc
+  title: "BioSCape Demo at BioSpace25"
+  site-url: https://nasa-openscapes.github.io/2025-biospace
+  repo-url: https://github.com/NASA-Openscapes/2025-biospace
   repo-actions: [edit, issue]
   page-navigation: true
-  page-footer: "NASA Openscapes (2023). BIOSPACE25"
+  page-footer: "NASA Openscapes (2025). BioSCape Demo at BioSpace25"
  
   navbar: 
     background: primary
     right: 
       - sidebar:welcome
       - icon: github
-        href: https://github.com/NASA-Openscapes/2023-ssc
- 
+        href: https://github.com/NASA-Openscapes/2025-biospace
   sidebar:
     - id: welcome
       title: "Menu"
-      logo: https://raw.githubusercontent.com/NASA-Openscapes/media/main/images/scc/espacio-logo.png
+      logo: https://raw.githubusercontent.com/NASA-Openscapes/2025-biospace/refs/heads/main/images/bioscape.png
       style: "docked"
       collapse-level: 1
       align: left
