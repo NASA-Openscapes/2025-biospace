@@ -1,4 +1,4 @@
-ame: Render and deploy quarto files
+name: Render and deploy quarto files
 on:
   push:
   pull_request:
