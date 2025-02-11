@@ -1,0 +1,61 @@
+name: openscapes
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - dask
+  - rioxarray
+  - xarray>=2022.12
+  - h5netcdf
+  - netcdf4>=1.6.4
+  - h5py
+  - gdal~=3.7
+  - libgdal
+  - geoviews
+  - holoviews=1.16.2
+  - matplotlib
+  - hvplot
+  - datashader
+  - pyproj
+  - bqplot
+  - geopandas
+  - zarr
+  - cartopy
+  - pynco
+  - rasterio
+  - shapely
+  - icepyx
+  - joblib
+  - pystac-client
+  - pydap
+  - ipyleaflet
+  # when jlab 4 gets released we can upgrade dask-labextension
+  - dask-labextension==6.2.0
+  - jupyter-server-proxy
+  - ipywidgets
+  - jupyter-book
+  - jupyterlab<4
+  - jupyterlab-myst
+  - jupyterhub-singleuser
+  - jupyterlab-geojson
+  - jupyterlab-favorites
+  - jupyterlab-git
+  - jupyter-resource-usage<1.0.0a
+  - jupyterlab-h5web<8.0
+  - ipympl
+  - conda-lock
+  - earthaccess>=0.6.1
+  - sliderule>=3.6.0
+  - h5coro
+  - itslive
+  - rasterstats
+  - kerchunk
+  - pqdm
+  - spectral
+  - scikit-image
+  - s3fs
+  - nbgitpuller
+platforms:
+  - linux-64
+  - osx-64
+  - win-64
