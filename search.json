@@ -1,5 +1,38 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BioSCape Workshop at BioSpace25",
+    "section": "",
+    "text": "Workshop Description\nHarnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA’s BioSCAPE campaign\nMichele Thornton1, Rupesh Shrestha1, Erin Hestir2, Adam Wilson3, Jasper Slingsby4, Anabelle Cardoso3,4\n1Oak Ridge National Laboratory Distributed Active Archive Center; 2University of California, Merced; 3University at Buffalo; 4University of Cape Town\nIn October/November of 2023, the US National Aeronautics and Space Administration (NASA) conducted its first Biodiversity field and airborne campaign across terrestrial and aquatic environments in the South African Greater Cape Floristic Region (GCFR). From 4 airborne instruments (Airborne Visible-Infrared Imaging Spectrometer - Next Generation (AVIRIS-NG), Portable Remote Imaging SpectroMeter (PRISM), Hyperspectral Thermal Emission Spectrometer (HyTES), and Land, Vegetation, and Ice Sensor (LVIS)) the BioSCape Campaign’s remote sensing data products provides an unprecedented level of image spectroscopy from VSWIR to TIR wavelengths as well as full-waveform laser altimeter measurements. Airborne data are supplemented with a rich combination of contemporaneous biodiversity-relevant field observations toward an approach to measure and understand functional, phylogenetic, and taxonomic biological diversity as components of ecosystem function.\nA majority of the BioSCape Campaign data will be archived through the NASA-funded Oak Ridge National Laboratory Distributed Active Archive Center (ORNL DAAC). The discipline-specific Center provides dataset content to NASA’s Earthdata Cloud which includes a standardized metadata called Common Metadata Repository (CMR), data discovery, and open access.\nThis hands-on demonstration will leverage a managed cloud environment to show programmatic discovery, access, and analysis of NASA BioSCape data/resources and concurrent orbital data. Included will be content and tutorials demonstrating derivation of estimates of biodiversity variables including:\n\nAn overview of the BioSCape Campaign data acquisition\nNASA Earthdata Cloud: Search, Access, and Analysis Basics\nExplore BioSCape vegetation plot and image spectroscopy data\nInvasive species analysis from AVIRIS-NG and Vegetation Plot Data\nVegetation Structural Diversity derived from LVIS and GEDI full waveform lidar data.\nAquatic biodiversity estimates from PRISM, PACE, and EMIT\n\nGET STARTED:\n\nDeploy Jupyter Lab instance in 2i2c",
+    "crumbs": [
+      "Welcome",
+      "BioSCape Workshop at BioSpace25"
+    ]
+  },
+  {
+    "objectID": "tutorials/prerequisites.html",
+    "href": "tutorials/prerequisites.html",
+    "title": "Prerequisites",
+    "section": "",
+    "text": "To follow along hands-on during the Workshop, please do the following (20 minutes). All software or accounts are free.\n\nEarthdata Login account\n\nCreate an Earthdata Login account (if you don’t already have one) at https://urs.earthdata.nasa.gov\nRemember your username and password; you will need to download or access cloud data during the workshop and beyond.\n\nNetrc file\n\nThis file is needed to access NASA Earthdata assets from a scripting environment like Python.\nThere are multiple methods to create a .netrc file. For this workshop, earthaccess package is used to automatically create a netrc file using your Earthdata login credentials if one does not exist.\n\nLaptop or tablet\n\nParticipation in the exercises requires a laptop or tablet. Yes, a tablet works too! All participants will have access to a 2i2c Jupyter Lab instance running in AWS us-west 2 at https://workshop.openscapes.2i2c.cloud/hub/. During the workshop, log in using your email address as a username and the password we will share during the workshop.",
+    "crumbs": [
+      "Welcome",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "tutorials/prerequisites.html#prerequisites",
+    "href": "tutorials/prerequisites.html#prerequisites",
+    "title": "Prerequisites",
+    "section": "",
+    "text": "To follow along hands-on during the Workshop, please do the following (20 minutes). All software or accounts are free.\n\nEarthdata Login account\n\nCreate an Earthdata Login account (if you don’t already have one) at https://urs.earthdata.nasa.gov\nRemember your username and password; you will need to download or access cloud data during the workshop and beyond.\n\nNetrc file\n\nThis file is needed to access NASA Earthdata assets from a scripting environment like Python.\nThere are multiple methods to create a .netrc file. For this workshop, earthaccess package is used to automatically create a netrc file using your Earthdata login credentials if one does not exist.\n\nLaptop or tablet\n\nParticipation in the exercises requires a laptop or tablet. Yes, a tablet works too! All participants will have access to a 2i2c Jupyter Lab instance running in AWS us-west 2 at https://workshop.openscapes.2i2c.cloud/hub/. During the workshop, log in using your email address as a username and the password we will share during the workshop.",
+    "crumbs": [
+      "Welcome",
+      "Prerequisites"
+    ]
+  },
+  {
     "objectID": "tutorials/avirisng/avng_invasive_esaworkshop_noS3.html",
     "href": "tutorials/avirisng/avng_invasive_esaworkshop_noS3.html",
     "title": "BIOSPACE25 Workshop:",
@@ -42,45 +75,5 @@
       "Mapping invasive species using AVIRIS-NG",
       "Machine learning with AVIRIS-NG"
     ]
-  },
-  {
-    "objectID": "index.html#about",
-    "href": "index.html#about",
-    "title": "BioSCape Demo",
-    "section": "About",
-    "text": "About\n\nWorkshop Description\nHarnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA’s BioSCAPE campaign\nMichele Thornton1, Rupesh Shrestha1, Erin Hestir2, Adam Wilson3, Jasper Slingsby4, Anabelle Cardoso3,4\n1Oak Ridge National Laboratory Distributed Active Archive Center; 2University of California, Merced; 3University at Buffalo; 4University of Cape Town\nIn October/November of 2023, the US National Aeronautics and Space Administration (NASA) conducted its first Biodiversity field and airborne campaign across terrestrial and aquatic environments in the South African Greater Cape Floristic Region (GCFR). From 4 airborne instruments (Airborne Visible-Infrared Imaging Spectrometer - Next Generation (AVIRIS-NG), Portable Remote Imaging SpectroMeter (PRISM), Hyperspectral Thermal Emission Spectrometer (HyTES), and Land, Vegetation, and Ice Sensor (LVIS)) the BioSCape Campaign’s remote sensing data products provides an unprecedented level of image spectroscopy from VSWIR to TIR wavelengths as well as full-waveform laser altimeter measurements. Airborne data are supplemented with a rich combination of contemporaneous biodiversity-relevant field observations toward an approach to measure and understand functional, phylogenetic, and taxonomic biological diversity as components of ecosystem function.\nA majority of the BioSCape Campaign data will be archived through the NASA-funded Oak Ridge National Laboratory Distributed Active Archive Center (ORNL DAAC). The discipline-specific Center provides dataset content to NASA’s Earthdata Cloud which includes a standardized metadata called Common Metadata Repository (CMR), data discovery, and open access.\nThis hands-on demonstration will leverage a managed cloud environment to show programmatic discovery, access, and analysis of NASA BioSCape data/resources and concurrent orbital data. Included will be content and tutorials demonstrating derivation of estimates of biodiversity variables including:\n\nAn overview of the BioSCape Campaign data acquisition\nNASA Earthdata Cloud: Search, Access, and Analysis Basics\nExplore BioSCape vegetation plot and image spectroscopy data\nInvasive species analysis from AVIRIS-NG and Vegetation Plot Data\nVegetation Structural Diversity derived from LVIS and GEDI full waveform lidar data.\nAquatic biodiversity estimates from PRISM, PACE, and EMIT\n\nGET STARTED:\n\nDeploy Jupyter Lab instance in 2i2c\n\nAccess notebooks without cloning",
-    "crumbs": [
-      "Welcome",
-      "BioSCape Demo"
-    ]
-  },
-  {
-    "objectID": "tutorials/prerequisites.html",
-    "href": "tutorials/prerequisites.html",
-    "title": "Prerequisites",
-    "section": "",
-    "text": "To follow along hands-on during the Workshop, please do the following (20 minutes). All software or accounts are free.\n\nEarthdata Login account\n\nCreate an Earthdata Login account (if you don’t already have one) at https://urs.earthdata.nasa.gov\nRemember your username and password; you will need to download or access cloud data during the workshop and beyond.\n\nNetrc file\n\nThis file is needed to access NASA Earthdata assets from a scripting environment like Python.\nThere are multiple methods to create a .netrc file. For this workshop, earthaccess package is used to automatically create a netrc file using your Earthdata login credentials if one does not exist.\n\nLaptop or tablet\n\nParticipation in the exercises requires a laptop or tablet. Yes, a tablet works too! All participants will have access to a 2i2c Jupyter Lab instance running in AWS us-west 2 at https://workshop.openscapes.2i2c.cloud/hub/. During the workshop, log in using your email address as a username and the password we will share during the workshop.",
-    "crumbs": [
-      "Welcome",
-      "Prerequisites"
-    ]
-  },
-  {
-    "objectID": "tutorials/prerequisites.html#prerequisites",
-    "href": "tutorials/prerequisites.html#prerequisites",
-    "title": "Prerequisites",
-    "section": "",
-    "text": "To follow along hands-on during the Workshop, please do the following (20 minutes). All software or accounts are free.\n\nEarthdata Login account\n\nCreate an Earthdata Login account (if you don’t already have one) at https://urs.earthdata.nasa.gov\nRemember your username and password; you will need to download or access cloud data during the workshop and beyond.\n\nNetrc file\n\nThis file is needed to access NASA Earthdata assets from a scripting environment like Python.\nThere are multiple methods to create a .netrc file. For this workshop, earthaccess package is used to automatically create a netrc file using your Earthdata login credentials if one does not exist.\n\nLaptop or tablet\n\nParticipation in the exercises requires a laptop or tablet. Yes, a tablet works too! All participants will have access to a 2i2c Jupyter Lab instance running in AWS us-west 2 at https://workshop.openscapes.2i2c.cloud/hub/. During the workshop, log in using your email address as a username and the password we will share during the workshop.",
-    "crumbs": [
-      "Welcome",
-      "Prerequisites"
-    ]
-  },
-  {
-    "objectID": "tutorials/index.html",
-    "href": "tutorials/index.html",
-    "title": "Overview",
-    "section": "",
-    "text": "These tutorials are a combination of narrative, links, code, and outputs. They have been developed for live demos during the Workshop, and are available for self-paced learning.\nHands-on exercises will be executed from a Jupyter Lab instance in 2i2c.\nTutorials are Jupyter (.ipynb) notebooks, and are available on GitHub\n\nThank you!\nJupyterHub: close out.\n\nclose out your JupyterHub instance if you are finished for the day, following these instructions.\n\nYou will continue to have access to the 2i2c JupyterHub in AWS for a week following the SSC GEDI/ICESAT-2 Cloud Workshop. You may use that time to continue work and all learn more about migrating data accass routines and science workflows to the Cloud. This cloud compute environment is supported by the NASA Openscapes project."
   }
 ]
