@@ -1,6 +1,6 @@
 ---
-title: "Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA's BioSCAPE campaign"
-subtitle: "BIOSPACE25"
+title: BioSCape Demo
+subtitle: "Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA's BioSCAPE campaign"
 ---
 
 ## Welcome to the BIOSCAPE DEMO!

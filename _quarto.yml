@@ -29,7 +29,7 @@ website:
             - tutorials/prerequisites.md 
         - section: "Mapping invasive species using AVIRIS-NG"
           contents: 
-            - href: tutorials/avirisng/avirisng.ipynb
+            - href: tutorials/avirisng/avng_invasive_esaworkshop_noS3.ipynb
               text: "Machine learning with AVIRIS-NG"
         - section: "LVIS/GEDI Data for Ecosystem Structure"
           contents: 
