@@ -2,26 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nasa-openscapes.github.io/2025-biospace/tutorials/lvis/lvis.html</loc>
-    <lastmod>2025-02-11T19:08:11.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nasa-openscapes.github.io/2025-biospace/tutorials/avirisng/avirisng.html</loc>
-    <lastmod>2025-02-11T19:08:11.170Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nasa-openscapes.github.io/2025-biospace/tutorials/prerequisites.html</loc>
-    <lastmod>2025-02-11T19:08:11.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nasa-openscapes.github.io/2025-biospace/index.html</loc>
-    <lastmod>2025-02-11T19:08:11.169Z</lastmod>
+    <lastmod>2025-02-11T19:16:08.135Z</lastmod>
   </url>
   <url>
     <loc>https://nasa-openscapes.github.io/2025-biospace/tutorials/avirisng/avng_invasive_esaworkshop_noS3.html</loc>
-    <lastmod>2025-02-11T19:08:11.170Z</lastmod>
+    <lastmod>2025-02-11T19:16:08.083Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nasa-openscapes.github.io/2025-biospace/index.html</loc>
+    <lastmod>2025-02-11T19:16:08.082Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nasa-openscapes.github.io/2025-biospace/tutorials/prerequisites.html</loc>
+    <lastmod>2025-02-11T19:16:08.135Z</lastmod>
   </url>
   <url>
     <loc>https://nasa-openscapes.github.io/2025-biospace/tutorials/index.html</loc>
-    <lastmod>2025-02-11T19:08:11.222Z</lastmod>
+    <lastmod>2025-02-11T19:16:08.135Z</lastmod>
   </url>
 </urlset>
