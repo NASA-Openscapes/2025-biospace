@@ -1,11 +1,11 @@
 ---
-title: BioSCape Demo
+title: BioSCape Workshop at BioSpace25
 subtitle: "Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA's BioSCAPE campaign"
+Date: February 12, 2025, Frascati (Rome), Italy
+
+![BIOSPACE](https://raw.githubusercontent.com/NASA-Openscapes/2025-biospace//main/tutorials/avirisng/images/BioSpace25_clip_50.jpg)
+
 ---
-
-## Welcome to the BIOSCAPE DEMO!
-
-## About
 
 ### Workshop Description
 **Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA's BioSCAPE campaign**
@@ -30,6 +30,5 @@ This hands-on demonstration will leverage a managed cloud environment to show pr
 
 **GET STARTED**:    
 
-- [Deploy Jupyter Lab instance in 2i2c](https://workshop.openscapes.2i2c.cloud/)   
-- [Access notebooks without cloning](https://workshop.openscapes.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2FNASA-Openscapes%2F2023-ssc&urlpath=lab%2Ftree%2F2023-ssc%2Ftutorials%2Fjupyterhub_demo%2Fjupyterhub_demo.ipynb&branch=main)
+- [Deploy Jupyter Lab instance in 2i2c](https://workshop.openscapes.2i2c.cloud/)
 

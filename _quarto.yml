@@ -2,12 +2,12 @@ project:
   type: website
 
 website:
-  title: "BioSCape Demo at BioSpace25"
+  title: "BioSCape Workshop at BioSpace25"
   site-url: https://nasa-openscapes.github.io/2025-biospace
   repo-url: https://github.com/NASA-Openscapes/2025-biospace
   repo-actions: [edit, issue]
   page-navigation: true
-  page-footer: "NASA Openscapes (2025). BioSCape Demo at BioSpace25"
+  page-footer: "NASA Openscapes (2025). BioSCape Workshop at BioSpace25"
  
   navbar: 
     background: primary
