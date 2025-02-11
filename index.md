@@ -2,10 +2,9 @@
 title: BioSCape Workshop at BioSpace25
 subtitle: "Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA's BioSCAPE campaign"
 Date: February 12, 2025, Frascati (Rome), Italy
-
-![BIOSPACE](https://raw.githubusercontent.com/NASA-Openscapes/2025-biospace//main/tutorials/avirisng/images/BioSpace25_clip_50.jpg)
-
 ---
+
+![](https://raw.githubusercontent.com/NASA-Openscapes/2025-biospace//main/tutorials/avirisng/images/BioSpace25_clip_50.jpg)
 
 ### Workshop Description
 **Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA's BioSCAPE campaign**
