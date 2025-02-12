@@ -426,40 +426,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>AVIRIS-NG Principle Investigator Researchers are finalizing formats and standards of AVIRIS-NG airborne radiance and reflectance files. When finalized, the data will be published to into NASA Earthdata.</p></li>
 <li><p>For now, JPL provides preliminatry AVIRIS-NG data <a href="https://popo.jpl.nasa.gov/pub/bioscape_netCDF/"><strong>here</strong></a>. Once finalized, AVIRIS-NG data from the BioSCape Campaign will be available from NASA Earthdata Cloud Storage.</p></li>
 </ul>
+<div id="f73b5727-e7cf-4d91-b319-24c24b72c530" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Workshop participants will download this file from JPL</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># If you need to download this file, uncomment the wget line and run this code block.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># !wget https://popo.jpl.nasa.gov/pub/bioscape_netCDF/rfl/ang20231109t133124_005_L2A_OE_0b4f48b4_RFL_ORT.nc -P /home/jovyan/2025-biospace/tutorials/avirisng/data/ang</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="select-the-aviris-ng-flight-line-data-to-selected-parameters-and-create-lists-to-use-later" class="level3">
 <h3 class="anchored" data-anchor-id="select-the-aviris-ng-flight-line-data-to-selected-parameters-and-create-lists-to-use-later">Select the AVIRIS-NG Flight Line data to selected parameters and create lists to use later</h3>
 <p>For our analysis demonstration in this Notebook, we’ll narrow the flight lines to the area of the Cape Penisula and for flights that took place on 2023-11-09. - the Python <strong><code>GeoDataFrame.to_crs</code></strong> method Transform geometries to a new coordinate reference system.</p>
 <div id="a1ea7a44-1335-4e2d-9ffc-1eafcfeba0bb" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># temporal filter:  filter dates to between midnight on 2023-11-09 and 23:59:59 on 2023-11-09</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>AVNG_CP <span class="op">=</span> AVNG_Coverage[(AVNG_Coverage[<span class="st">'end_time'</span>] <span class="op">&gt;=</span> <span class="st">'2023-11-09 00:00:00'</span>) <span class="op">&amp;</span> (AVNG_Coverage[<span class="st">'end_time'</span>] <span class="op">&lt;=</span> <span class="st">'2023-11-09 23:59:59'</span>)]</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>AVNG_CP <span class="op">=</span> AVNG_CP.to_crs(<span class="st">"EPSG:32734"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#keep only AVNG_CP that intersects with class_data</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>AVNG_CP <span class="op">=</span> AVNG_CP[AVNG_CP.intersects(class_data_utm.unary_union)]</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#AVNG_CP</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>files_s3 <span class="op">=</span> AVNG_CP[<span class="st">'RFL s3'</span>].tolist()</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>files_AVNG_geo <span class="op">=</span> AVNG_CP[<span class="st">'geometry'</span>].tolist()</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>files_AVNG_geo</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize the selected flight lines</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#m = AVNG_CP[['fid','geometry']].explore('fid')</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> AVNG_CP[[<span class="st">'fid'</span>, <span class="st">'geometry'</span>]].explore(<span class="st">'fid'</span>, tiles<span class="op">=</span><span class="st">'https://mt1.google.com/vt/lyrs=s&amp;x=</span><span class="sc">{x}</span><span class="st">&amp;y=</span><span class="sc">{y}</span><span class="st">&amp;z=</span><span class="sc">{z}</span><span class="st">'</span>, attr<span class="op">=</span><span class="st">'Google'</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#explore('LandType', tiles='https://mt1.google.com/vt/lyrs=s&amp;x={x}&amp;y={y}&amp;z={z}', attr='Google')</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># temporal filter:  filter dates to between midnight on 2023-11-09 and 23:59:59 on 2023-11-09</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>AVNG_CP <span class="op">=</span> AVNG_Coverage[(AVNG_Coverage[<span class="st">'end_time'</span>] <span class="op">&gt;=</span> <span class="st">'2023-11-09 00:00:00'</span>) <span class="op">&amp;</span> (AVNG_Coverage[<span class="st">'end_time'</span>] <span class="op">&lt;=</span> <span class="st">'2023-11-09 23:59:59'</span>)]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>AVNG_CP <span class="op">=</span> AVNG_CP.to_crs(<span class="st">"EPSG:32734"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#keep only AVNG_CP that intersects with class_data</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>AVNG_CP <span class="op">=</span> AVNG_CP[AVNG_CP.intersects(class_data_utm.unary_union)]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#AVNG_CP</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>files_s3 <span class="op">=</span> AVNG_CP[<span class="st">'RFL s3'</span>].tolist()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>files_AVNG_geo <span class="op">=</span> AVNG_CP[<span class="st">'geometry'</span>].tolist()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>files_AVNG_geo</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize the selected flight lines</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#m = AVNG_CP[['fid','geometry']].explore('fid')</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> AVNG_CP[[<span class="st">'fid'</span>, <span class="st">'geometry'</span>]].explore(<span class="st">'fid'</span>, tiles<span class="op">=</span><span class="st">'https://mt1.google.com/vt/lyrs=s&amp;x=</span><span class="sc">{x}</span><span class="st">&amp;y=</span><span class="sc">{y}</span><span class="st">&amp;z=</span><span class="sc">{z}</span><span class="st">'</span>, attr<span class="op">=</span><span class="st">'Google'</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#explore('LandType', tiles='https://mt1.google.com/vt/lyrs=s&amp;x={x}&amp;y={y}&amp;z={z}', attr='Google')</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="a0884783-b56c-4cbd-af1e-910f9e61f621" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>AVNG_CP.to_file(<span class="st">'AVNG_CP.geojson'</span>, driver<span class="op">=</span><span class="st">'GeoJSON'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>AVNG_CP.to_file(<span class="st">'AVNG_CP.geojson'</span>, driver<span class="op">=</span><span class="st">'GeoJSON'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="433d917f-df68-47f7-b0b1-de20be9dec9c" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>AVNG_CP.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>AVNG_CP.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="f6cd5b47-3ce0-44b1-8087-1962eea2fdcb" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(AVNG_CP[<span class="st">'fid'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(AVNG_CP[<span class="st">'fid'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="9ae176e1-b9d6-4dd1-b26a-7e4f21552738" class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>files_s3[<span class="dv">26</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>files_s3[<span class="dv">26</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="the-aviris-ng-files-are-also-in-s3-buckets-in-a-bioscape-science-managed-cloud-environment-smce." class="level4">
 <h4 class="anchored" data-anchor-id="the-aviris-ng-files-are-also-in-s3-buckets-in-a-bioscape-science-managed-cloud-environment-smce.">The AVIRIS-NG files are also in S3 buckets in a BioSCape Science Managed Cloud Environment (SMCE).</h4>
@@ -470,15 +475,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="s3-access-is-commented-out-for-workshop-participants" class="level4">
 <h4 class="anchored" data-anchor-id="s3-access-is-commented-out-for-workshop-participants">S3 access is commented out for workshop participants</h4>
 <div id="0431d079-e0c9-4cab-b5d4-3c93fef145cf" class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using BioSCape AWS Credentials to acces BioSCape SMCE</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import s3fs</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># secret_key=</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># access_key=</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># token =</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fs = s3fs.S3FileSystem(anon=False, </span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     secret=secret_key,</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     key=access_key,</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     token=token)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using BioSCape AWS Credentials to acces BioSCape SMCE</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import s3fs</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># secret_key=</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># access_key=</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># token =</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fs = s3fs.S3FileSystem(anon=False, </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     secret=secret_key,</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     key=access_key,</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     token=token)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -494,13 +499,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <div id="3e2d210f-4a68-4d2c-bb1e-05cbd5b06ff5" class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fs.ls('bioscape-data/')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fs.ls('bioscape-data/')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="14bea73f-6662-4ee8-8128-59bcc5fdb8aa" class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fs.ls('bioscape-data/AVNG_V2/')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fs.ls('bioscape-data/AVNG_V2/')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="edd319d0-9366-455b-a8fe-b9072850fb8b" class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fs.ls('bioscape-data/AVNG_V2/ang20231109t133124/ang20231109t133124_005')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fs.ls('bioscape-data/AVNG_V2/ang20231109t133124/ang20231109t133124_005')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="single-aviris-ng-flight-scene-reflectance-file-ang20231109t133124_005_l2a_oe_0b4f48b4_rfl_ort.nc" class="level4">
 <h4 class="anchored" data-anchor-id="single-aviris-ng-flight-scene-reflectance-file-ang20231109t133124_005_l2a_oe_0b4f48b4_rfl_ort.nc">Single AVIRIS-NG flight scene Reflectance file <strong><code>ang20231109t133124_005_L2A_OE_0b4f48b4_RFL_ORT.nc</code></strong></h4>
@@ -513,43 +518,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong><code>xarray</code></strong> is an open source project and Python package that introduces labels in the form of dimensions, coordinates, and attributes on top of raw NumPy-like arrays</li>
 </ul>
 <div id="ca1e1459-59f4-4c4e-ad9b-1a9c3a65a331" class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Sample code to open a file from an S3 bucket using S3Fs</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#rfl_netcdf = xr.open_datatree(fs.open(files_s3[26], 'rb'),</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                              engine='h5netcdf', chunks={})</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Sample code to open a file from an S3 bucket using S3Fs</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#rfl_netcdf = xr.open_datatree(fs.open(files_s3[26], 'rb'),</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                              engine='h5netcdf', chunks={})</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="bfe9a4c8-e9cc-4b43-b7aa-39a7612dece0" class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For this workshop, we're using a local AVIRIS-NG scence </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>rfl_netcdf_2i2c <span class="op">=</span> <span class="st">'data/ang/ang20231109t134249_006_L2A_OE_0b4f48b4_RFL_ORT.nc'</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>rfl_netcdf_2i2c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For this workshop, we're using a local AVIRIS-NG scence </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rfl_netcdf_2i2c <span class="op">=</span> <span class="st">'data/ang/ang20231109t134249_006_L2A_OE_0b4f48b4_RFL_ORT.nc'</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>rfl_netcdf_2i2c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="13f66965-d621-4e25-b84f-0cc97ca3bf55" class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rfl_netcdf = xr.open_datatree(fs.open(files_s3[26], 'rb'),</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                              engine='h5netcdf', chunks={})</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>rfl_netcdf <span class="op">=</span> xr.open_datatree(rfl_netcdf_2i2c, engine<span class="op">=</span><span class="st">'h5netcdf'</span>, chunks<span class="op">=</span>{})</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rfl_netcdf <span class="op">=</span> rfl_netcdf.reflectance.to_dataset()</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>rfl_netcdf <span class="op">=</span> rfl_netcdf.reflectance.where(rfl_netcdf.reflectance<span class="op">&gt;</span><span class="dv">0</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>rfl_netcdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rfl_netcdf = xr.open_datatree(fs.open(files_s3[26], 'rb'),</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                              engine='h5netcdf', chunks={})</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>rfl_netcdf <span class="op">=</span> xr.open_datatree(rfl_netcdf_2i2c, engine<span class="op">=</span><span class="st">'h5netcdf'</span>, chunks<span class="op">=</span>{})</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>rfl_netcdf <span class="op">=</span> rfl_netcdf.reflectance.to_dataset()</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>rfl_netcdf <span class="op">=</span> rfl_netcdf.reflectance.where(rfl_netcdf.reflectance<span class="op">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>rfl_netcdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-a-true-color-image" class="level3">
 <h3 class="anchored" data-anchor-id="plot-a-true-color-image">Plot a true color image</h3>
 <div id="dda7578f-913b-4aef-9350-49a1f2f98cff" class="cell" data-scrolled="true">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> rfl_netcdf.sel(wavelength<span class="op">=</span>[<span class="dv">660</span>, <span class="dv">570</span>, <span class="dv">480</span>], method<span class="op">=</span><span class="st">"nearest"</span>).hvplot.rgb(<span class="st">'easting'</span>, <span class="st">'northing'</span>,</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                                                                            rasterize<span class="op">=</span><span class="va">True</span>, data_aspect<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                                                                            bands<span class="op">=</span><span class="st">'wavelength'</span>, frame_width<span class="op">=</span><span class="dv">400</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> rfl_netcdf.sel(wavelength<span class="op">=</span>[<span class="dv">660</span>, <span class="dv">570</span>, <span class="dv">480</span>], method<span class="op">=</span><span class="st">"nearest"</span>).hvplot.rgb(<span class="st">'easting'</span>, <span class="st">'northing'</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                                                            rasterize<span class="op">=</span><span class="va">True</span>, data_aspect<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                                                                            bands<span class="op">=</span><span class="st">'wavelength'</span>, frame_width<span class="op">=</span><span class="dv">400</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-just-a-red-reflectance" class="level3">
 <h3 class="anchored" data-anchor-id="plot-just-a-red-reflectance">Plot just a red reflectance</h3>
 <div id="7b06cab1-2ca6-4a25-85b3-a88c24592fb5" class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> rfl_netcdf.sel({<span class="st">'wavelength'</span>: <span class="dv">660</span>},method<span class="op">=</span><span class="st">'nearest'</span>).hvplot(<span class="st">'easting'</span>, <span class="st">'northing'</span>,</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                                      rasterize<span class="op">=</span><span class="va">True</span>, data_aspect<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                                                      cmap<span class="op">=</span><span class="st">'magma'</span>,frame_width<span class="op">=</span><span class="dv">400</span>,clim<span class="op">=</span>(<span class="dv">0</span>,<span class="fl">0.3</span>))</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> rfl_netcdf.sel({<span class="st">'wavelength'</span>: <span class="dv">660</span>},method<span class="op">=</span><span class="st">'nearest'</span>).hvplot(<span class="st">'easting'</span>, <span class="st">'northing'</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                                                      rasterize<span class="op">=</span><span class="va">True</span>, data_aspect<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                                      cmap<span class="op">=</span><span class="st">'magma'</span>,frame_width<span class="op">=</span><span class="dv">400</span>,clim<span class="op">=</span>(<span class="dv">0</span>,<span class="fl">0.3</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="extract-spectra-for-each-land-plot" class="level3">
@@ -558,69 +563,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="now-that-we-are-familiar-with-the-data-we-want-to-get-the-aviris-spectra-at-each-label-location.-below-is-a-function-that-does-this-and-returns-the-result-as-a-xarray">Now that we are familiar with the data, we want to get the AVIRIS spectra at each label location. Below is a function that does this and returns the result as a xarray</h4>
 <p>Recall some files we created earlier: - <code>files_s3</code> = list; S3 netCDF files directories from the Cape Penisula subset area - <code>files_AVNG_geo</code> = list; coordinates of bounding boxes of the flight line scenes from the Cape Penisula area - <code>class_data_utm</code> = gpd; Cape Penisula Land Types with UTM geography</p>
 <div id="5dfa83e3-1a79-4854-9ba6-97e88a0d5fef" class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#the function takes a filepath to a file on s3, and the point locations for extraction</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#this function requires hitting files on the BioSCape SMCE</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># def extract_points(s3uri, geof, points):</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     ds = xr.open_datatree(fs.open(s3uri, 'rb'), decode_coords='all',</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                           engine='h5netcdf', chunks='auto')</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     # Clip the raw data to the bounding box  </span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     points = points.clip(geof)</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(f'got {points.shape[0]} point from {s3uri}')</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     points = points.to_crs(ds.transverse_mercator.crs_wkt)</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     # Extract points</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     #extracted = ds.to_dataset().xvec.extract_points(points['geometry'], x_coords="easting", y_coords="northing",index=True)</span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     extracted = ds.reflectance.to_dataset().xvec.extract_points(points['geometry'], </span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                                 x_coords="easting", </span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                                 y_coords="northing",</span></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                                 index=True)</span></span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     return extracted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#the function takes a filepath to a file on s3, and the point locations for extraction</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#this function requires hitting files on the BioSCape SMCE</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># def extract_points(s3uri, geof, points):</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     ds = xr.open_datatree(fs.open(s3uri, 'rb'), decode_coords='all',</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                           engine='h5netcdf', chunks='auto')</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     # Clip the raw data to the bounding box  </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     points = points.clip(geof)</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(f'got {points.shape[0]} point from {s3uri}')</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     points = points.to_crs(ds.transverse_mercator.crs_wkt)</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     # Extract points</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     #extracted = ds.to_dataset().xvec.extract_points(points['geometry'], x_coords="easting", y_coords="northing",index=True)</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     extracted = ds.reflectance.to_dataset().xvec.extract_points(points['geometry'], </span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                                 x_coords="easting", </span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                                 y_coords="northing",</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                                 index=True)</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     return extracted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When we call the function, we’ll iterate through the list of files (files_s3). Each file will overlap with several land class points.</p>
 <div id="36321f50-3c41-4e9b-b8fb-c50abc8738c2" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ds_all = [extract_points(file, geo, class_data_utm) for file, geo in zip(files_s3, files_AVNG_geo)]</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ds_all = xr.concat(ds_all, dim='file')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ds_all = [extract_points(file, geo, class_data_utm) for file, geo in zip(files_s3, files_AVNG_geo)]</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ds_all = xr.concat(ds_all, dim='file')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="c89d9db1-29c4-4d57-86c9-aa93ab207bb4" class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ds_all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ds_all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Because some points are covered by multiple AVIRIS scenes, some points have multiple spectra for each location, and thus we have an extra dim in this. We will simply extract the first valid reflectance measurement for each geometry. We have a custom function to do this <code>get_first_xr()</code></p>
 <div id="2eaa4021-7198-4a04-9f12-b3b41918dbb6" class="cell" data-scrolled="true">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ds = get_first_xr(ds_all)</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ds = get_first_xr(ds_all)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This data set just has the spectra. We need to merge with point data to add labels</p>
 <div id="cea14253-bf16-42ba-a2eb-712634cac76d" class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># class_xr =class_data_utm[['class','group']].to_xarray()</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ds = ds.merge(class_xr.astype(int),join='left')</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># class_xr =class_data_utm[['class','group']].to_xarray()</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ds = ds.merge(class_xr.astype(int),join='left')</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We have defined all the operations we want, but becasue of xarrays lazy compution, the calculations have not yet been done. We will now force it to perform this calculations. We want to keep the result in chunks, so we use .persist() and not .compute(). This should take approx 2 - 3 mins</p>
 <div id="6b1f1e08-dbed-4329-9777-7957ceef389f" class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">##  DUE TO RUN TIME LENGTH, WE WILL NOT RUN THIS IN THE WORKSHOP - HAVE SAVED THIS OUTPUT FOR NEXT STEP</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with ProgressBar():</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dsp = ds.persist()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">##  DUE TO RUN TIME LENGTH, WE WILL NOT RUN THIS IN THE WORKSHOP - HAVE SAVED THIS OUTPUT FOR NEXT STEP</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with ProgressBar():</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dsp = ds.persist()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="318d800d-ad44-4840-a218-f055d1dfb389" class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dsp <span class="op">=</span> xr.open_dataset(<span class="st">'dsp.nc'</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dsp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dsp <span class="op">=</span> xr.open_dataset(<span class="st">'dsp.nc'</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dsp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="inspect-aviris-spectra" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-aviris-spectra">Inspect AVIRIS spectra</h3>
 <div id="3ca9c4ea-12ac-4718-867d-9b9953c2ade1" class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recall the class types</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>label_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recall the class types</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>label_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cc0332b5-3eb5-4cc0-8860-c764f03f33b9" class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dsp_plot <span class="op">=</span> dsp.where(dsp[<span class="st">'class'</span>]<span class="op">==</span><span class="dv">5</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> dsp_plot[<span class="st">'reflectance'</span>].hvplot.line(x<span class="op">=</span><span class="st">'wavelength'</span>,by<span class="op">=</span><span class="st">'index'</span>,</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                                    color<span class="op">=</span><span class="st">'green'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>,legend<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>dsp_plot <span class="op">=</span> dsp.where(dsp[<span class="st">'class'</span>]<span class="op">==</span><span class="dv">5</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> dsp_plot[<span class="st">'reflectance'</span>].hvplot.line(x<span class="op">=</span><span class="st">'wavelength'</span>,by<span class="op">=</span><span class="st">'index'</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                                    color<span class="op">=</span><span class="st">'green'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>,legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <blockquote class="blockquote">
 <p>At this point in a real machine learning workflow, you should closely inspect the spectra you have for each class. Do they make sense? Are there some spectra that look weird? You should re-evaluate your data to make sure that the assigned labels are true. This is a very important step</p>
@@ -629,34 +634,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="prep-data-for-ml-model">Prep data for ML model</h4>
 <p>As you will know, not all of the wavelengths in the data are of equal quality, some will be degraded by atmospheric water absorption features or other factors. We should remove the bands from the analysis that we are not confident of. Probably the best way to do this is to use the uncertainties provided along with the reflectance files. We will simply use some prior knowledge to screen out the worst bands.</p>
 <div id="28ef2ccf-025a-43fc-8148-b224c13d42b1" class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>wavelengths_to_drop <span class="op">=</span> dsp.wavelength.where(</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&lt;</span> <span class="dv">450</span>) <span class="op">|</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&gt;=</span> <span class="dv">1340</span>) <span class="op">&amp;</span> (dsp.wavelength <span class="op">&lt;=</span> <span class="dv">1480</span>) <span class="op">|</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&gt;=</span> <span class="dv">1800</span>) <span class="op">&amp;</span> (dsp.wavelength <span class="op">&lt;=</span> <span class="dv">1980</span>) <span class="op">|</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&gt;</span> <span class="dv">2400</span>), drop<span class="op">=</span><span class="va">True</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use drop_sel() to remove those specific wavelength ranges</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>dsp <span class="op">=</span> dsp.drop_sel(wavelength<span class="op">=</span>wavelengths_to_drop)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> (dsp[<span class="st">'reflectance'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span>).<span class="bu">all</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>)  <span class="co"># Create a mask where all values along 'z' are non-negative</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>dsp <span class="op">=</span> dsp.sel(index<span class="op">=</span>mask)</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>dsp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>wavelengths_to_drop <span class="op">=</span> dsp.wavelength.where(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&lt;</span> <span class="dv">450</span>) <span class="op">|</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&gt;=</span> <span class="dv">1340</span>) <span class="op">&amp;</span> (dsp.wavelength <span class="op">&lt;=</span> <span class="dv">1480</span>) <span class="op">|</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&gt;=</span> <span class="dv">1800</span>) <span class="op">&amp;</span> (dsp.wavelength <span class="op">&lt;=</span> <span class="dv">1980</span>) <span class="op">|</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    (dsp.wavelength <span class="op">&gt;</span> <span class="dv">2400</span>), drop<span class="op">=</span><span class="va">True</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use drop_sel() to remove those specific wavelength ranges</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>dsp <span class="op">=</span> dsp.drop_sel(wavelength<span class="op">=</span>wavelengths_to_drop)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> (dsp[<span class="st">'reflectance'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span>).<span class="bu">all</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>)  <span class="co"># Create a mask where all values along 'z' are non-negative</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>dsp <span class="op">=</span> dsp.sel(index<span class="op">=</span>mask)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>dsp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next we will normalize the data, there are a number of difference normalizations to try. In a ML workflow you should try a few and see which work best. We will only use a Brightness Normalization. In essence, we scale the reflectance of each wavelength by the total brightness of the spectra. This retains info on important shape features and relative reflectance, and removes info on absolute reflectance.</p>
 <div id="86886370-d346-4547-8db4-4a7b27e479aa" class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the L2 norm along the 'wavelength' dimension</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>l2_norm <span class="op">=</span> np.sqrt((dsp[<span class="st">'reflectance'</span>] <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>))</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the reflectance by dividing by the L2 norm</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>dsp[<span class="st">'reflectance'</span>] <span class="op">=</span> dsp[<span class="st">'reflectance'</span>] <span class="op">/</span> l2_norm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the L2 norm along the 'wavelength' dimension</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>l2_norm <span class="op">=</span> np.sqrt((dsp[<span class="st">'reflectance'</span>] <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the reflectance by dividing by the L2 norm</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>dsp[<span class="st">'reflectance'</span>] <span class="op">=</span> dsp[<span class="st">'reflectance'</span>] <span class="op">/</span> l2_norm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot the new, clean spectra</p>
 <div id="fdea565b-f455-4aa3-8f76-ca6ae28d00fd" class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dsp_norm_plot <span class="op">=</span> dsp.where(dsp[<span class="st">'class'</span>]<span class="op">==</span><span class="dv">5</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> dsp_norm_plot[<span class="st">'reflectance'</span>].hvplot.line(x<span class="op">=</span><span class="st">'wavelength'</span>,by<span class="op">=</span><span class="st">'index'</span>,</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                                         color<span class="op">=</span><span class="st">'green'</span>,ylim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.01</span>,<span class="fl">0.2</span>),alpha<span class="op">=</span><span class="fl">0.5</span>,legend<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dsp_norm_plot <span class="op">=</span> dsp.where(dsp[<span class="st">'class'</span>]<span class="op">==</span><span class="dv">5</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> dsp_norm_plot[<span class="st">'reflectance'</span>].hvplot.line(x<span class="op">=</span><span class="st">'wavelength'</span>,by<span class="op">=</span><span class="st">'index'</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                                         color<span class="op">=</span><span class="st">'green'</span>,ylim<span class="op">=</span>(<span class="op">-</span><span class="fl">0.01</span>,<span class="fl">0.2</span>),alpha<span class="op">=</span><span class="fl">0.5</span>,legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -665,27 +670,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will be using a model called <code>xgboost</code>. There are many, many different kinds of ML models. <code>xgboost</code> is a class of models called gradient boosted trees, related to random forests. When used for classification, random forests work by creating multiple decision trees, each trained on a random subset of the data and features, and then averaging their predictions to improve accuracy and reduce overfitting. Gradient boosted trees differ in that they build trees sequentially, with each new tree focusing on correcting the errors of the previous ones. This sequential approach allows <code>xgboost</code> to create highly accurate models by iteratively refining predictions and addressing the weaknesses of earlier trees.</p>
 <p>Import the Machine Learning libraries we will use.</p>
 <div id="73e9f2ba-072d-4f51-8314-8c002dd60803" class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, f1_score, precision_score, recall_score, confusion_matrix, ConfusionMatrixDisplay</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, f1_score, precision_score, recall_score, confusion_matrix, ConfusionMatrixDisplay</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Our dataset has a label indicating which set (training or test), our data belong to. We wil use this to split it</p>
 <div id="4c2d3cff-1402-4415-bb9e-23e634ffdc54" class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recall groups</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>class_data_utm.groupby([<span class="st">'group'</span>]).size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recall groups</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>class_data_utm.groupby([<span class="st">'group'</span>]).size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="812a85a0-2788-4b70-be09-b4ab315358be" class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>class_data_utm.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>class_data_utm.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="f9d2c637-fd44-47ad-8c3d-c29510b3c4d3" class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dtrain <span class="op">=</span> dsp.where(dsp[<span class="st">'group'</span>]<span class="op">==</span><span class="dv">1</span>,drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>dtest <span class="op">=</span> dsp.where(dsp[<span class="st">'group'</span>]<span class="op">==</span><span class="dv">2</span>,drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#create separte datasets for labels and features</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> dtrain[<span class="st">'class'</span>].values.astype(<span class="bu">int</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> dtest[<span class="st">'class'</span>].values.astype(<span class="bu">int</span>)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> dtrain[<span class="st">'reflectance'</span>].values</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> dtest[<span class="st">'reflectance'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>dtrain <span class="op">=</span> dsp.where(dsp[<span class="st">'group'</span>]<span class="op">==</span><span class="dv">1</span>,drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>dtest <span class="op">=</span> dsp.where(dsp[<span class="st">'group'</span>]<span class="op">==</span><span class="dv">2</span>,drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#create separte datasets for labels and features</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> dtrain[<span class="st">'class'</span>].values.astype(<span class="bu">int</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> dtest[<span class="st">'class'</span>].values.astype(<span class="bu">int</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> dtrain[<span class="st">'reflectance'</span>].values</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> dtest[<span class="st">'reflectance'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="train-ml-model" class="level4">
 <h4 class="anchored" data-anchor-id="train-ml-model">Train ML model</h4>
@@ -697,27 +702,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Once the grid search completes, we print out the best set of hyperparameters and the corresponding best score. The grid_search.best_params_ attribute provides the combination of hyperparameters that achieved the highest cross-validation accuracy, while the grid_search.best_score_ attribute shows the corresponding accuracy score. Finally, we extract the best model (best_model) from the grid search results. This model is trained with the optimal hyperparameters and is ready for making predictions or further analysis in our classification task.</p>
 <p>This will take approx <strong>30 seconds</strong></p>
 <div id="d617f51d-b299-4c9b-810a-962cd8fa303a" class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the hyperparameter grid</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: [<span class="dv">5</span>],</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'learning_rate'</span>: [<span class="fl">0.1</span>],</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'subsample'</span>: [<span class="fl">0.75</span>],</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span> : [<span class="dv">50</span>,<span class="dv">100</span>]</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the XGBoost model object</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> xgb.XGBClassifier(tree_method<span class="op">=</span><span class="st">'hist'</span>)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the GridSearchCV object</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(xgb_model, param_grid, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the GridSearchCV object to the training data</span></span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the best set of hyperparameters and the corresponding score</span></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best set of hyperparameters: "</span>, grid_search.best_params_)</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best score: "</span>, grid_search.best_score_)</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>best_model <span class="op">=</span> grid_search.best_estimator_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the hyperparameter grid</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: [<span class="dv">5</span>],</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'learning_rate'</span>: [<span class="fl">0.1</span>],</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'subsample'</span>: [<span class="fl">0.75</span>],</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span> : [<span class="dv">50</span>,<span class="dv">100</span>]</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the XGBoost model object</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> xgb.XGBClassifier(tree_method<span class="op">=</span><span class="st">'hist'</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the GridSearchCV object</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(xgb_model, param_grid, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the GridSearchCV object to the training data</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the best set of hyperparameters and the corresponding score</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best set of hyperparameters: "</span>, grid_search.best_params_)</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best score: "</span>, grid_search.best_score_)</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>best_model <span class="op">=</span> grid_search.best_estimator_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -727,27 +732,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Next, we assess how well the model performs for predicting Pine trees by calculating its precision and recall. Precision measures the accuracy of the positive predictions. It answers the question, “Of all the instances we labeled as Pines, how many were actually Pines?”. Recall measures the model’s ability to identify all actual positive instances. It answers the question, “Of all the actual Pines, how many did we correctly identify?”. You may also be familiar with the terms Users’ and Producers’ Accuracy. Precision = User’ Accuracy, and Recall = Producers’ Accuracy.</p>
 <p>Finally, we create and display a confusion matrix to visualize the model’s prediction accuracy across all classes</p>
 <div id="d97ca76e-2c9e-4d4c-a451-c3df092adc7c" class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Calculate acc and F1 score for the entire dataset</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>acc<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> f1_score(y_test, y_pred, average<span class="op">=</span><span class="st">'weighted'</span>)  <span class="co"># 'weighted' accounts for class imbalance</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1 Score (weighted): </span><span class="sc">{</span>f1<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Calculate precision and recall for class 5 (Pine)</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>precision_class_5 <span class="op">=</span> precision_score(y_test, y_pred, labels<span class="op">=</span>[<span class="dv">5</span>], average<span class="op">=</span><span class="st">'macro'</span>, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>recall_class_5 <span class="op">=</span> recall_score(y_test, y_pred, labels<span class="op">=</span>[<span class="dv">5</span>], average<span class="op">=</span><span class="st">'macro'</span>, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision for Class 5: </span><span class="sc">{</span>precision_class_5<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall for Class 5: </span><span class="sc">{</span>recall_class_5<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Plot the confusion matrix</span></span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>conf_matrix).plot()</span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Calculate acc and F1 score for the entire dataset</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>acc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> f1_score(y_test, y_pred, average<span class="op">=</span><span class="st">'weighted'</span>)  <span class="co"># 'weighted' accounts for class imbalance</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1 Score (weighted): </span><span class="sc">{</span>f1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Calculate precision and recall for class 5 (Pine)</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>precision_class_5 <span class="op">=</span> precision_score(y_test, y_pred, labels<span class="op">=</span>[<span class="dv">5</span>], average<span class="op">=</span><span class="st">'macro'</span>, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>recall_class_5 <span class="op">=</span> recall_score(y_test, y_pred, labels<span class="op">=</span>[<span class="dv">5</span>], average<span class="op">=</span><span class="st">'macro'</span>, zero_division<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision for Class 5: </span><span class="sc">{</span>precision_class_5<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall for Class 5: </span><span class="sc">{</span>recall_class_5<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Plot the confusion matrix</span></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>conf_matrix).plot()</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="skipping-some-steps-in-glenns-bioscape-workshop-tutorial" class="level3">
@@ -760,63 +765,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We now have a trained model and are ready to deploy it to generate predictions across an entire AVIRIS scene and map the distribution of invasive plants. This involves handling a large volume of data, so we need to write the code to do this intelligently. We will accomplish this by applying the <code>.predict()</code> method of our trained model in parallel across the chunks of the AVIRIS xarray. The model will receive one chunk at a time so that the data is not too large, but it will be able to perform this operation in parallel across multiple chunks, and therefore will not take too long.</p>
 <p>This model was only trained on data covering natural vegetaton in the Cape Peninsula, It is important that we only predict in the areas that match our training data. We will therefore filter to scenes that cover the Cape Peninsula and mask out non-protected areas</p>
 <div id="974fce3f-dee4-45c9-874c-ec7b150cf902" class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#south africa protected areas</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>SAPAD <span class="op">=</span> (gpd.read_file(<span class="st">'data/SAPAD_2024.gpkg'</span>)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>         .query(<span class="st">"SITE_TYPE!='Marine Protected Area'"</span>)</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SAPAD.plot()</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SAPAD.to_crs("EPSG:32734")</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>SAPAD.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#south africa protected areas</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>SAPAD <span class="op">=</span> (gpd.read_file(<span class="st">'data/SAPAD_2024.gpkg'</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>         .query(<span class="st">"SITE_TYPE!='Marine Protected Area'"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SAPAD.plot()</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SAPAD.to_crs("EPSG:32734")</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>SAPAD.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="0d3f20e7-0c23-4a40-b2af-8725dd4d721d" class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the bounding box of the training data</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> class_data_utm.total_bounds  <span class="co"># (minx, miny, maxx, maxy)</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#bbox</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>gdf_bbox <span class="op">=</span> gpd.GeoDataFrame({<span class="st">'geometry'</span>: [box(<span class="op">*</span>bbox)]}, crs<span class="op">=</span>class_data_utm.crs)  <span class="co"># Specify the CRS</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>gdf_bbox[<span class="st">'geometry'</span>] <span class="op">=</span> gdf_bbox.<span class="bu">buffer</span>(<span class="dv">500</span>)</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>gdf_bbox.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the bounding box of the training data</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> class_data_utm.total_bounds  <span class="co"># (minx, miny, maxx, maxy)</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co">#bbox</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>gdf_bbox <span class="op">=</span> gpd.GeoDataFrame({<span class="st">'geometry'</span>: [box(<span class="op">*</span>bbox)]}, crs<span class="op">=</span>class_data_utm.crs)  <span class="co"># Specify the CRS</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>gdf_bbox[<span class="st">'geometry'</span>] <span class="op">=</span> gdf_bbox.<span class="bu">buffer</span>(<span class="dv">500</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>gdf_bbox.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="b00ce1b9-b2c5-47a1-b3d2-9786b5f98e30" class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#south africa protected areas</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>SAPAD <span class="op">=</span> (gpd.read_file(<span class="st">'data/SAPAD_2024.gpkg'</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>         .query(<span class="st">"SITE_TYPE!='Marine Protected Area'"</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>SAPAD <span class="op">=</span> SAPAD.to_crs(<span class="st">"EPSG:32734"</span>)</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the bounding box of the training data</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> class_data_utm.total_bounds  <span class="co"># (minx, miny, maxx, maxy)</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>gdf_bbox <span class="op">=</span> gpd.GeoDataFrame({<span class="st">'geometry'</span>: [box(<span class="op">*</span>bbox)]}, crs<span class="op">=</span>class_data_utm.crs)  <span class="co"># Specify the CRS</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>gdf_bbox[<span class="st">'geometry'</span>] <span class="op">=</span> gdf_bbox.<span class="bu">buffer</span>(<span class="dv">500</span>)</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="co"># protected areas that intersect with the training data</span></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>SAPAD_CT <span class="op">=</span> SAPAD.overlay(gdf_bbox,how<span class="op">=</span><span class="st">'intersection'</span>)</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="co">#keep only AVIRIS scenes that intersects with CT protected areas</span></span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>AVNG_sapad <span class="op">=</span> AVNG_CP[AVNG_CP.intersects(SAPAD_CT.unary_union)]</span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co">#a list of files to predict</span></span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>files_sapad <span class="op">=</span> AVNG_sapad[<span class="st">'RFL s3'</span>].tolist()</span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="co">#how many files?</span></span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(files_sapad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#south africa protected areas</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>SAPAD <span class="op">=</span> (gpd.read_file(<span class="st">'data/SAPAD_2024.gpkg'</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>         .query(<span class="st">"SITE_TYPE!='Marine Protected Area'"</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>SAPAD <span class="op">=</span> SAPAD.to_crs(<span class="st">"EPSG:32734"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the bounding box of the training data</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> class_data_utm.total_bounds  <span class="co"># (minx, miny, maxx, maxy)</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>gdf_bbox <span class="op">=</span> gpd.GeoDataFrame({<span class="st">'geometry'</span>: [box(<span class="op">*</span>bbox)]}, crs<span class="op">=</span>class_data_utm.crs)  <span class="co"># Specify the CRS</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>gdf_bbox[<span class="st">'geometry'</span>] <span class="op">=</span> gdf_bbox.<span class="bu">buffer</span>(<span class="dv">500</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co"># protected areas that intersect with the training data</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>SAPAD_CT <span class="op">=</span> SAPAD.overlay(gdf_bbox,how<span class="op">=</span><span class="st">'intersection'</span>)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co">#keep only AVIRIS scenes that intersects with CT protected areas</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>AVNG_sapad <span class="op">=</span> AVNG_CP[AVNG_CP.intersects(SAPAD_CT.unary_union)]</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="co">#a list of files to predict</span></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>files_sapad <span class="op">=</span> AVNG_sapad[<span class="st">'RFL s3'</span>].tolist()</span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="co">#how many files?</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(files_sapad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="a4c134e3-f12f-4a17-aae7-898737fdfa41" class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> AVNG_sapad[[<span class="st">'fid'</span>,<span class="st">'geometry'</span>]].explore(<span class="st">'fid'</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> AVNG_sapad[[<span class="st">'fid'</span>,<span class="st">'geometry'</span>]].explore(<span class="st">'fid'</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="17490875-d8c9-4256-ab5f-576e944097c2" class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>SAPAD.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>SAPAD.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="7ee0c900-56c1-49a1-be6c-0edddae355b4" class="cell" data-scrolled="true">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#map = AVNG_Coverage[['fid', 'geometry']].explore('fid')</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> SAPAD[[<span class="st">'SITE_TYPE'</span>, <span class="st">'geometry'</span>]].explore(<span class="st">'SITE_TYPE'</span>)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#map = AVNG_Coverage[['fid', 'geometry']].explore('fid')</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> SAPAD[[<span class="st">'SITE_TYPE'</span>, <span class="st">'geometry'</span>]].explore(<span class="st">'SITE_TYPE'</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here is the function that we will actually apply to each chunk. Simple really. The hard work is getting the data into and out of this functiON</p>
 <div id="0158fee1-4b09-4999-acfd-f5c4dd8ed19d" class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_on_chunk(chunk, model):</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    probabilities <span class="op">=</span> model.predict_proba(chunk)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probabilities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_on_chunk(chunk, model):</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    probabilities <span class="op">=</span> model.predict_proba(chunk)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probabilities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we define the funciton that takes as input the path to the AVIRIS file and pass the data to the predict function. THhs is composed of 4 parts:</p>
 <p>Part 1: Opens the AVIRIS data file using xarray and sets a condition to identify valid data points where reflectance values are greater than zero.</p>
@@ -824,79 +829,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Part 3: Applies the machine learning model to the normalized data in parallel, predicting class probabilities for each data point using xarray’s apply_ufunc method. Most of the function invloves defining what to do with the dimensions of the old dataset and the new output</p>
 <p>Part 4: Unstacks the data to restore its original dimensions, sets spatial dimensions and coordinate reference system (CRS), clips the data, and transposes the data to match expected formats before returning the results.</p>
 <div id="7ed0c90c-c056-4637-9945-a6a4d21af109" class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_xr(<span class="bu">file</span>,geometries):</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 1 - opening file</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#open the file</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'file: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> xr.open_datatree(rfl_netcdf_2i2c, engine<span class="op">=</span><span class="st">'h5netcdf'</span>, decode_coords<span class="op">=</span><span class="st">"all"</span>,</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                         chunks<span class="op">=</span><span class="st">'auto'</span>)</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get the geometries of the protected areas for masking</span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>    ds_crs <span class="op">=</span> ds.transverse_mercator.crs_wkt</span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>    geometries <span class="op">=</span> geometries.to_crs(ds_crs).geometry.<span class="bu">apply</span>(mapping)</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#condition to use for masking no data later</span></span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>    condition <span class="op">=</span> (ds[<span class="st">'reflectance'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span>).<span class="bu">any</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>)</span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#stack the data into a single dimension. This will be important for applying the model later</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> ds.reflectance.to_dataset().stack(sample<span class="op">=</span>(<span class="st">'easting'</span>,<span class="st">'northing'</span>))</span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 2 - pre-processing</span></span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#remove bad wavelenghts</span></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>    wavelengths_to_drop <span class="op">=</span> ds.wavelength.where(</span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&lt;</span> <span class="dv">450</span>) <span class="op">|</span></span>
-<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&gt;=</span> <span class="dv">1340</span>) <span class="op">&amp;</span> (ds.wavelength <span class="op">&lt;=</span> <span class="dv">1480</span>) <span class="op">|</span></span>
-<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&gt;=</span> <span class="dv">1800</span>) <span class="op">&amp;</span> (ds.wavelength <span class="op">&lt;=</span> <span class="dv">1980</span>) <span class="op">|</span></span>
-<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&gt;</span> <span class="dv">2400</span>), drop<span class="op">=</span><span class="va">True</span></span>
-<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use drop_sel() to remove those specific wavelength ranges</span></span>
-<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> ds.drop_sel(wavelength<span class="op">=</span>wavelengths_to_drop)</span>
-<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">#normalise the data</span></span>
-<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a>    l2_norm <span class="op">=</span> np.sqrt((ds[<span class="st">'reflectance'</span>] <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>))</span>
-<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a>    ds[<span class="st">'reflectance'</span>] <span class="op">=</span> ds[<span class="st">'reflectance'</span>] <span class="op">/</span> l2_norm</span>
-<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 3 - apply the model over chunks</span></span>
-<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> xr.apply_ufunc(</span>
-<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a>        predict_on_chunk,</span>
-<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a>        ds[<span class="st">'reflectance'</span>].chunk(<span class="bu">dict</span>(wavelength<span class="op">=-</span><span class="dv">1</span>)),</span>
-<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a>        input_core_dims<span class="op">=</span>[[<span class="st">'wavelength'</span>]],<span class="co">#input dim with features</span></span>
-<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a>        output_core_dims<span class="op">=</span>[[<span class="st">'class'</span>]],  <span class="co"># name for the new output dim</span></span>
-<span id="cb51-41"><a href="#cb51-41" aria-hidden="true" tabindex="-1"></a>        exclude_dims<span class="op">=</span><span class="bu">set</span>((<span class="st">'wavelength'</span>,)),  <span class="co">#dims to drop in result</span></span>
-<span id="cb51-42"><a href="#cb51-42" aria-hidden="true" tabindex="-1"></a>        output_sizes<span class="op">=</span>{<span class="st">'class'</span>: <span class="dv">9</span>}, <span class="co">#length of the new dimension</span></span>
-<span id="cb51-43"><a href="#cb51-43" aria-hidden="true" tabindex="-1"></a>        output_dtypes<span class="op">=</span>[np.float32],</span>
-<span id="cb51-44"><a href="#cb51-44" aria-hidden="true" tabindex="-1"></a>        dask<span class="op">=</span><span class="st">"parallelized"</span>,</span>
-<span id="cb51-45"><a href="#cb51-45" aria-hidden="true" tabindex="-1"></a>        kwargs<span class="op">=</span>{<span class="st">'model'</span>: best_model}</span>
-<span id="cb51-46"><a href="#cb51-46" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb51-47"><a href="#cb51-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-48"><a href="#cb51-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 4 - post-processing</span></span>
-<span id="cb51-49"><a href="#cb51-49" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.where((result <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="op">&amp;</span> (result <span class="op">&lt;=</span> <span class="dv">1</span>), np.nan) <span class="co">#valid values</span></span>
-<span id="cb51-50"><a href="#cb51-50" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.unstack(<span class="st">'sample'</span>) <span class="co">#remove the stack</span></span>
-<span id="cb51-51"><a href="#cb51-51" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.rio.set_spatial_dims(x_dim<span class="op">=</span><span class="st">'easting'</span>,y_dim<span class="op">=</span><span class="st">'northing'</span>) <span class="co">#set the spatial dims</span></span>
-<span id="cb51-52"><a href="#cb51-52" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.rio.write_crs(ds_crs) <span class="co">#set the CRS</span></span>
-<span id="cb51-53"><a href="#cb51-53" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.rio.clip(geometries) <span class="co">#clip to the protected areas and no data</span></span>
-<span id="cb51-54"><a href="#cb51-54" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.transpose(<span class="st">'class'</span>, <span class="st">'northing'</span>, <span class="st">'easting'</span>) <span class="co">#transpose the data rio expects it this way</span></span>
-<span id="cb51-55"><a href="#cb51-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_xr(<span class="bu">file</span>,geometries):</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 1 - opening file</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#open the file</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'file: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> xr.open_datatree(rfl_netcdf_2i2c, engine<span class="op">=</span><span class="st">'h5netcdf'</span>, decode_coords<span class="op">=</span><span class="st">"all"</span>,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>                         chunks<span class="op">=</span><span class="st">'auto'</span>)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get the geometries of the protected areas for masking</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    ds_crs <span class="op">=</span> ds.transverse_mercator.crs_wkt</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    geometries <span class="op">=</span> geometries.to_crs(ds_crs).geometry.<span class="bu">apply</span>(mapping)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#condition to use for masking no data later</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>    condition <span class="op">=</span> (ds[<span class="st">'reflectance'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span>).<span class="bu">any</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>)</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#stack the data into a single dimension. This will be important for applying the model later</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> ds.reflectance.to_dataset().stack(sample<span class="op">=</span>(<span class="st">'easting'</span>,<span class="st">'northing'</span>))</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 2 - pre-processing</span></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#remove bad wavelenghts</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    wavelengths_to_drop <span class="op">=</span> ds.wavelength.where(</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&lt;</span> <span class="dv">450</span>) <span class="op">|</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&gt;=</span> <span class="dv">1340</span>) <span class="op">&amp;</span> (ds.wavelength <span class="op">&lt;=</span> <span class="dv">1480</span>) <span class="op">|</span></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&gt;=</span> <span class="dv">1800</span>) <span class="op">&amp;</span> (ds.wavelength <span class="op">&lt;=</span> <span class="dv">1980</span>) <span class="op">|</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>        (ds.wavelength <span class="op">&gt;</span> <span class="dv">2400</span>), drop<span class="op">=</span><span class="va">True</span></span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use drop_sel() to remove those specific wavelength ranges</span></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> ds.drop_sel(wavelength<span class="op">=</span>wavelengths_to_drop)</span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">#normalise the data</span></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>    l2_norm <span class="op">=</span> np.sqrt((ds[<span class="st">'reflectance'</span>] <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(dim<span class="op">=</span><span class="st">'wavelength'</span>))</span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>    ds[<span class="st">'reflectance'</span>] <span class="op">=</span> ds[<span class="st">'reflectance'</span>] <span class="op">/</span> l2_norm</span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 3 - apply the model over chunks</span></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> xr.apply_ufunc(</span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>        predict_on_chunk,</span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>        ds[<span class="st">'reflectance'</span>].chunk(<span class="bu">dict</span>(wavelength<span class="op">=-</span><span class="dv">1</span>)),</span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>        input_core_dims<span class="op">=</span>[[<span class="st">'wavelength'</span>]],<span class="co">#input dim with features</span></span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>        output_core_dims<span class="op">=</span>[[<span class="st">'class'</span>]],  <span class="co"># name for the new output dim</span></span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>        exclude_dims<span class="op">=</span><span class="bu">set</span>((<span class="st">'wavelength'</span>,)),  <span class="co">#dims to drop in result</span></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>        output_sizes<span class="op">=</span>{<span class="st">'class'</span>: <span class="dv">9</span>}, <span class="co">#length of the new dimension</span></span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>        output_dtypes<span class="op">=</span>[np.float32],</span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>        dask<span class="op">=</span><span class="st">"parallelized"</span>,</span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a>        kwargs<span class="op">=</span>{<span class="st">'model'</span>: best_model}</span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">#part 4 - post-processing</span></span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.where((result <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="op">&amp;</span> (result <span class="op">&lt;=</span> <span class="dv">1</span>), np.nan) <span class="co">#valid values</span></span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.unstack(<span class="st">'sample'</span>) <span class="co">#remove the stack</span></span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.rio.set_spatial_dims(x_dim<span class="op">=</span><span class="st">'easting'</span>,y_dim<span class="op">=</span><span class="st">'northing'</span>) <span class="co">#set the spatial dims</span></span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.rio.write_crs(ds_crs) <span class="co">#set the CRS</span></span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.rio.clip(geometries) <span class="co">#clip to the protected areas and no data</span></span>
+<span id="cb52-54"><a href="#cb52-54" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result.transpose(<span class="st">'class'</span>, <span class="st">'northing'</span>, <span class="st">'easting'</span>) <span class="co">#transpose the data rio expects it this way</span></span>
+<span id="cb52-55"><a href="#cb52-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s test that it works on a single file before we run it through 100s of GB of data.</p>
 <div id="96e10e7e-2514-4a62-b967-0a83d1c5d6db" class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#files_sapad[25]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#files_sapad[25]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="aeb17f14-5cf0-4684-a293-02db53dd3b0b" class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>test  <span class="op">=</span> predict_xr(rfl_netcdf_2i2c,SAPAD_CT)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>test  <span class="op">=</span> predict_xr(rfl_netcdf_2i2c,SAPAD_CT)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="faec501e-747c-41f9-a301-eebdf58319d8" class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>label_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>label_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="48c27393-076f-4b8a-b0bb-3ac628a8e8dc" class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test.rio.reproject(<span class="st">"EPSG:4326"</span>,nodata<span class="op">=</span>np.nan)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> test.isel({<span class="st">'class'</span>:<span class="dv">5</span>}).hvplot(tiles<span class="op">=</span>hv.element.tiles.EsriImagery(), </span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                              project<span class="op">=</span><span class="va">True</span>,rasterize<span class="op">=</span><span class="va">True</span>,clim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                              cmap<span class="op">=</span><span class="st">'magma'</span>,frame_width<span class="op">=</span><span class="dv">400</span>,data_aspect<span class="op">=</span><span class="dv">1</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test.rio.reproject(<span class="st">"EPSG:4326"</span>,nodata<span class="op">=</span>np.nan)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> test.isel({<span class="st">'class'</span>:<span class="dv">5</span>}).hvplot(tiles<span class="op">=</span>hv.element.tiles.EsriImagery(), </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                              project<span class="op">=</span><span class="va">True</span>,rasterize<span class="op">=</span><span class="va">True</span>,clim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                              cmap<span class="op">=</span><span class="st">'magma'</span>,frame_width<span class="op">=</span><span class="dv">400</span>,data_aspect<span class="op">=</span><span class="dv">1</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ML models typically provide a single prediction of the most likely outcomes. You can also get probability-like scores (values from 0 to 1) from these models, but they are not true probabilities. If the model gives you a score of 0.6, that means it is more likely than a prediction of 0.5, and less likely than 0.7. However, it does not mean that in a large sample your prediction would be right 60 times out of 100. To get calibrated probabilities from our models, we have to apply additional steps. We can also get a set of predictions from models rather than a single prediction, which reflects the model’s true uncertainty using a technique called conformal predictions. Read more about conformal prediction for geospatial machine learning in this amazing paper:</p>
 <p><a href="https://www.nature.com/articles/s41598-024-65954-w">Singh, G., Moncrieff, G., Venter, Z., Cawse-Nicholson, K., Slingsby, J., &amp; Robinson, T. B. (2024). Uncertainty quantification for probabilistic machine learning in earth observation using conformal prediction. Scientific Reports, 14(1), 16166.</a></p>
