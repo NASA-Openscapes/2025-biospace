@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>LVIS – BioSCape Workshop at BioSpace25</title>
+<title>BIOSPACE25 Workshop: – BioSCape Workshop at BioSpace25</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -215,15 +249,48 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#harnessing-analysis-tools-for-biodiversity-applications-using-field-airborne-and-orbital-remote-sensing-data-from-nasas-bioscape-campaign" id="toc-harnessing-analysis-tools-for-biodiversity-applications-using-field-airborne-and-orbital-remote-sensing-data-from-nasas-bioscape-campaign" class="nav-link active" data-scroll-target="#harnessing-analysis-tools-for-biodiversity-applications-using-field-airborne-and-orbital-remote-sensing-data-from-nasas-bioscape-campaign">Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA’s BioSCAPE campaign</a></li>
+  <li><a href="#exploring-and-visualizing-bioscape-lvis-data" id="toc-exploring-and-visualizing-bioscape-lvis-data" class="nav-link" data-scroll-target="#exploring-and-visualizing-bioscape-lvis-data">Exploring and Visualizing BioSCape LVIS Data</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a></li>
+  <li><a href="#structure-lvis-l1b-geolocated-waveform" id="toc-structure-lvis-l1b-geolocated-waveform" class="nav-link" data-scroll-target="#structure-lvis-l1b-geolocated-waveform">Structure LVIS L1B Geolocated Waveform</a></li>
+  <li><a href="#structure-of-lvis-l2-canopy-height-product" id="toc-structure-of-lvis-l2-canopy-height-product" class="nav-link" data-scroll-target="#structure-of-lvis-l2-canopy-height-product">Structure of LVIS L2 Canopy Height Product</a></li>
+  <li><a href="#plot-lvis-bioscape-campaigns" id="toc-plot-lvis-bioscape-campaigns" class="nav-link" data-scroll-target="#plot-lvis-bioscape-campaigns">Plot LVIS Bioscape Campaigns</a>
+  <ul class="collapse">
+  <li><a href="#search-lvis-l2a-granules-over-a-study-area" id="toc-search-lvis-l2a-granules-over-a-study-area" class="nav-link" data-scroll-target="#search-lvis-l2a-granules-over-a-study-area">Search LVIS L2A granules over a study area</a></li>
+  <li><a href="#download-l2-granules" id="toc-download-l2-granules" class="nav-link" data-scroll-target="#download-l2-granules">Download L2 granules</a></li>
+  <li><a href="#read-lvis-l2a-files" id="toc-read-lvis-l2a-files" class="nav-link" data-scroll-target="#read-lvis-l2a-files">Read LVIS L2A Files</a></li>
+  <li><a href="#height-of-top-canopy" id="toc-height-of-top-canopy" class="nav-link" data-scroll-target="#height-of-top-canopy">Height of Top Canopy</a></li>
+  <li><a href="#relative-height-distribution" id="toc-relative-height-distribution" class="nav-link" data-scroll-target="#relative-height-distribution">Relative Height Distribution</a></li>
+  </ul></li>
+  <li><a href="#gedi-l2a-canopy-height-metrics" id="toc-gedi-l2a-canopy-height-metrics" class="nav-link" data-scroll-target="#gedi-l2a-canopy-height-metrics">GEDI L2A Canopy Height Metrics</a>
+  <ul class="collapse">
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a></li>
+  <li><a href="#authentication-1" id="toc-authentication-1" class="nav-link" data-scroll-target="#authentication-1">Authentication</a></li>
+  <li><a href="#create-harmony-client-object" id="toc-create-harmony-client-object" class="nav-link" data-scroll-target="#create-harmony-client-object">Create Harmony Client Object</a></li>
+  <li><a href="#retrieve-concept-id" id="toc-retrieve-concept-id" class="nav-link" data-scroll-target="#retrieve-concept-id">Retrieve Concept ID</a></li>
+  <li><a href="#define-request-parameters" id="toc-define-request-parameters" class="nav-link" data-scroll-target="#define-request-parameters">Define Request Parameters</a></li>
+  <li><a href="#create-and-submit-harmony-request" id="toc-create-and-submit-harmony-request" class="nav-link" data-scroll-target="#create-and-submit-harmony-request">Create and Submit Harmony Request</a></li>
+  <li><a href="#read-subset-files" id="toc-read-subset-files" class="nav-link" data-scroll-target="#read-subset-files">Read Subset files</a></li>
+  <li><a href="#rh-metrics" id="toc-rh-metrics" class="nav-link" data-scroll-target="#rh-metrics">RH metrics</a></li>
+  </ul></li>
+  <li><a href="#gedi-waveform-structural-complexity-index-wsci" id="toc-gedi-waveform-structural-complexity-index-wsci" class="nav-link" data-scroll-target="#gedi-waveform-structural-complexity-index-wsci">GEDI Waveform Structural Complexity Index (WSCI)</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/NASA-Openscapes/2025-biospace/blob/main/tutorials/lvis/lvis.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/NASA-Openscapes/2025-biospace/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/lvis/lvis.html">LVIS/GEDI Data for Ecosystem Structure</a></li><li class="breadcrumb-item"><a href="../../tutorials/lvis/lvis.html">LVIS/GEDI Data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">LVIS</h1>
+<h1 class="title">BIOSPACE25 Workshop:</h1>
 </div>
 
 
@@ -240,8 +307,568 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="harnessing-analysis-tools-for-biodiversity-applications-using-field-airborne-and-orbital-remote-sensing-data-from-nasas-bioscape-campaign" class="level2">
+<h2 class="anchored" data-anchor-id="harnessing-analysis-tools-for-biodiversity-applications-using-field-airborne-and-orbital-remote-sensing-data-from-nasas-bioscape-campaign">Harnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA’s BioSCAPE campaign</h2>
+<p>Michele Thornton, Rupesh Shrestha, Erin Hestir, Adam Wilson, Jasper Slingsby, Anabelle Cardoso</p>
+<p><strong>Date:</strong> February 12, 2025, Frascati (Rome), Italy</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../avirisng/images/BioSpace25_clip_50.jpg" class="img-fluid figure-img"></p>
+<figcaption>BIOSPACE25</figcaption>
+</figure>
+</div>
+</section>
+<section id="exploring-and-visualizing-bioscape-lvis-data" class="level1">
+<h1>Exploring and Visualizing BioSCape LVIS Data</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p><a href="https://www.bioscape.io/"><strong>BioSCape</strong></a>, the Biodiversity Survey of the Cape, is NASA’s first biodiversity-focused airborne and field campaign that was conducted in South Africa in 2023. BioSCape’s primary objective is to study the structure, function, and composition of the region’s ecosystems, and how and why they are changing.</p>
+<p>BioSCape’s airborne dataset is unprecedented, with <code>AVIRIS-NG</code>, <code>PRISM</code>, and <code>HyTES</code> imaging spectrometers capturing spectral data across the UV, visible and infrared at high resolution and <code>LVIS</code> acquiring coincident full-waveform lidar. BioSCape’s <code>field dataset</code> is equally impressive, with 18 PI-led projects collecting data ranging from the diversity and phylogeny of plants, kelp and phytoplankton, eDNA, landscape acoustics, plant traits, blue carbon accounting, and more</p>
+<p>This tutorial will demonstrate accessing and visualizing <strong>Land, Vegetation, and Ice Sensor (LVIS)</strong> data available on the BioSCape SMCE. LVIS is an airborne, wide-swath imaging full-waveform laser altimeter. LVIS collects in a 1064 nm-wavelength (near infrared) range with 3 detectors mounted in an airborne platform, flown typically ~10 km above the ground producing a data swath of 2km wide with 7-10 m footprints. More information about the LVIS instrument is <a href="https://lvis.gsfc.nasa.gov/Home/instrumentdetails.html">here</a>.</p>
+<p>The LVIS instrument has been flown above several regions of the world since 1998. The LVIS flights were collected for the <a href="https://lvis.gsfc.nasa.gov/Data/Maps/SouthAfrica2023Map.html">BioSCAPE campaigns</a> from <code>01 Oct 2023</code> through <code>30 Nov 2023</code>.</p>
+<p>There are three LVIS BioSCape data products currently available and archived at <a href="https://search.earthdata.nasa.gov/search?q=LVIS&amp;qt=2023-10-20T00%3A00%3A00.000Z%2C2023-11-15T23%3A59%3A59.999Z&amp;fi=LVIS-Camera!LVIS&amp;fdc=National%2BSnow%2Band%2BIce%2BData%2BCenter%2BDistributed%2BActive%2BArchive%2BCenter%2B%2528NSIDC%2BDAAC%2529&amp;fpj=BioSCape&amp;_ga=2.63606251.53278573.1721067437-1362124365.1714395655&amp;_gl=1*q0ghrk*_ga*MTM2MjEyNDM2NS4xNzE0Mzk1NjU1*_ga_LQ2P0SNJCZ*MTcyMTU5NTQ4Ni4xMjMuMS4xNzIxNTk1NjkxLjAuMC4w">NSIDC DAAC</a></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Dataset DOI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LVIS L1A Geotagged Images V001</td>
+<td><a href="https://doi.org/10.5067/NE5KKKBAQG44">10.5067/NE5KKKBAQG44</a></td>
+</tr>
+<tr class="even">
+<td>LVIS Facility L1B Geolocated Return Energy Waveforms V001</td>
+<td><a href="https://doi.org/10.5067/XQJ8PN8FTIDG">10.5067/XQJ8PN8FTIDG</a></td>
+</tr>
+<tr class="odd">
+<td>LVIS Facility L2 Geolocated Surface Elevation and Canopy Height Product V001</td>
+<td><a href="https://doi.org/10.5067/VP7J20HJQISD">10.5067/VP7J20HJQISD</a></td>
+</tr>
+</tbody>
+</table>
+<p>For this tutorial, we’ll examine the <code>LVIS L2 Geolocated Surface Elevation and Canopy Height Product V001</code></p>
+<ul>
+<li><strong>Citation:</strong> Blair, J. B. &amp; Hofton, M. (2020). LVIS Facility L2 Geolocated Surface Elevation and Canopy Height Product, Version 1 [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/VP7J20HJQISD.</li>
+<li><strong>User Guide</strong> <a href="https://nsidc.org/sites/default/files/lvisf2-v001-userguide_2_0.pdf">LVIS Facility L2 Geolocated Surface Elevation and Canopy Height Product, Version</a>1</li>
+</ul>
+<p><img src="assets/lvis_waveform.png" class="img-fluid" alt="LVIS Waveform"> <strong>Figure:</strong> Sample LVIS product waveforms illustrating possible distributions of reflected light (Blair et al., 2020)</p>
+<div id="cd97e651-d363-467d-b59d-200642012f13" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> glob <span class="im">import</span> glob</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> re</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os <span class="im">import</span> path</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.ops <span class="im">import</span> orient</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Polygon, MultiPolygon</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> box</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dill</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> harmony <span class="im">import</span> BBox,Client, Collection, Request, LinkType</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f610f151-697a-4e29-bc37-23832a61c1ab" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install crepes dill xgboost pynndescent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6fd2ce4a-c1c4-4eb1-9961-ebecc7f0fd93" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># esri background basemap for maps</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xyz <span class="op">=</span> <span class="st">"https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/</span><span class="sc">{z}</span><span class="st">/</span><span class="sc">{y}</span><span class="st">/</span><span class="sc">{x}</span><span class="st">"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>attr <span class="op">=</span> <span class="st">"ESRI"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="authentication" class="level2">
+<h2 class="anchored" data-anchor-id="authentication">Authentication</h2>
+<p>We recommend authenticating your Earthdata Login (EDL) information using the <code>earthaccess</code> python library as follows:</p>
+<div id="fb726fa5-b0bf-439a-a8fa-4092152031bd" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># works if the EDL login already been persisted to a netrc</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"netrc"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ask for EDL credentials and persist them in a .netrc file</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>, persist<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="structure-lvis-l1b-geolocated-waveform" class="level2">
+<h2 class="anchored" data-anchor-id="structure-lvis-l1b-geolocated-waveform">Structure LVIS L1B Geolocated Waveform</h2>
+<p>First, let’s find out how many L1B files from the BioSCape Campaign are published on NASA Earthdata.</p>
+<div id="01e92f1c-7705-467c-bee5-2a8f73667293" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>doi<span class="op">=</span><span class="st">"10.5067/XQJ8PN8FTIDG"</span> <span class="co"># LVIS L1B doi</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> earthaccess.DataGranules().doi(doi)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>query.params[<span class="st">'campaign'</span>] <span class="op">=</span> <span class="st">'bioscape'</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>l1b <span class="op">=</span> query.get_all()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Granules found: </span><span class="sc">{</span><span class="bu">len</span>(l1b)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are 2328 granules LVIS L1B product found for the time period. Let’s see if they are hosted on Earthdata cloud or not, by printing a summary of the first granule</p>
+<div id="2bb8ffe4-49a6-4ba3-b535-4c083d44356b" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>l1b[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we see above, the LVIS files are not cloud-hosted yet. They have to be downloaded locally and use them. We will go ahead and use earthaccess python module to get the file directly and save it to the <code>downloads</code> directory.</p>
+<div id="4d8c2390-4587-449a-a1c4-2031a77fae0d" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download files</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>downloaded_files <span class="op">=</span> earthaccess.download(l1b[<span class="dv">0</span>], local_path<span class="op">=</span><span class="st">"downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we go ahead and open a file to look at its structure.</p>
+<div id="289fa230-014d-4343-8b43-94fc5c142ea7" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>l1b_first <span class="op">=</span> <span class="ss">f'downloads/</span><span class="sc">{</span>path<span class="sc">.</span>basename(l1b[<span class="dv">0</span>].data_links()[<span class="dv">0</span>])<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> h5py.File(l1b_first) <span class="im">as</span> hf:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> v <span class="kw">in</span> <span class="bu">list</span>(hf.keys()):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> v <span class="op">!=</span> <span class="st">"ancillary_data"</span>:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"- </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss"> : </span><span class="sc">{</span>hf[v]<span class="sc">.</span>attrs[<span class="st">'description'</span>][<span class="dv">0</span>]<span class="sc">.</span>decode(<span class="st">'utf-8'</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e338cb08-5a9e-4c52-8d0c-6f5dc889cca9" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> h5py.File(l1b_first) <span class="im">as</span> hf:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    l_lat <span class="op">=</span> hf[<span class="st">'LAT1215'</span>][:]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    l_lon <span class="op">=</span> hf[<span class="st">'LON1215'</span>][:]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    l_range <span class="op">=</span> hf[<span class="st">'Z1215'</span>][:] <span class="co"># ground elevation</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    shot <span class="op">=</span> hf[<span class="st">'SHOTNUMBER'</span>][:] <span class="co"># ground elevation</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>geo_arr <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(shot, l_range,l_lat,l_lon))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>l1b_df <span class="op">=</span> pd.DataFrame(geo_arr, columns<span class="op">=</span>[<span class="st">"shot_number"</span>, <span class="st">"elevation"</span>, <span class="st">"lat"</span>, <span class="st">"lon"</span>])</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>l1b_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="51cc2323-b7c1-44f4-92d1-ba1d94b643d2" class="cell" data-scrolled="true" data-tags="[]">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>l1b_gdf <span class="op">=</span> gpd.GeoDataFrame(l1b_df, crs<span class="op">=</span><span class="st">"EPSG:4326"</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                           geometry<span class="op">=</span>gpd.points_from_xy(l1b_df.lon, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                                       l1b_df.lat))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>l1b_gdf.sample(frac<span class="op">=</span><span class="fl">0.01</span>).explore(<span class="st">"elevation"</span>, cmap <span class="op">=</span> <span class="st">"plasma"</span>, tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="75eb11ab-d494-4f38-9cff-727650d760c4" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> np.where(shot<span class="op">==</span><span class="dv">1319816</span>)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> h5py.File(l1b_first) <span class="im">as</span> hf:</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    rxwaveform <span class="op">=</span> hf[<span class="st">'RXWAVE'</span>][i, :] <span class="co"># waveform</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    elev_1215 <span class="op">=</span> hf[<span class="st">'Z1215'</span>][i] <span class="co"># elevation ground</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    elev_0 <span class="op">=</span> hf[<span class="st">'Z0'</span>][i] <span class="co"># elevation top</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">len</span>(rxwaveform) <span class="co">#</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>elev <span class="op">=</span> np.linspace(elev_1215, elev_0, num<span class="op">=</span>c)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">3</span>,<span class="dv">10</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"rxwaveform (counts)"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"elevation (m)"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.plot(rxwaveform, elev, linestyle<span class="op">=</span><span class="st">'--'</span>, marker<span class="op">=</span><span class="st">'.'</span>,)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="structure-of-lvis-l2-canopy-height-product" class="level2">
+<h2 class="anchored" data-anchor-id="structure-of-lvis-l2-canopy-height-product">Structure of LVIS L2 Canopy Height Product</h2>
+<p>First, let’s search how many L2 files are there for the BioSCape campaign dates.</p>
+<div id="e22753cf-c53e-445d-801a-33f084c74ac3" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>doi<span class="op">=</span><span class="st">"10.5067/VP7J20HJQISD"</span> <span class="co"># LVIS L2 doi</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> earthaccess.DataGranules().doi(doi)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>query.params[<span class="st">'campaign'</span>] <span class="op">=</span> <span class="st">'bioscape'</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>l2 <span class="op">=</span> query.get_all()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Granules found: </span><span class="sc">{</span><span class="bu">len</span>(l2)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are 2328 granules LVIS L2 product found for the time period. Let’s see if they are hosted on Earthdata cloud or not, by printing a summary of the first granule</p>
+<div id="51c4ca82-0fd8-4008-9532-cd420f58e30a" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>l2[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we see above, the LVIS files are not cloud-hosted yet. They have to be downloaded locally and use them. We will go ahead and use earthaccess python module to get the file directly and save it to the <code>downloads</code> directory.</p>
+<div id="33ee5880-c62e-4736-9635-a081b872463f" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download files</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>downloaded_files <span class="op">=</span> earthaccess.download(l2[<span class="dv">0</span>], local_path<span class="op">=</span><span class="st">"downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we’ll go ahead and open a file to look at it’s structure.</p>
+<div id="e58f0982-f1d7-4689-a951-3a1a84b7f03a" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>l2_first <span class="op">=</span> <span class="ss">f'downloads/</span><span class="sc">{</span>path<span class="sc">.</span>basename(l2[<span class="dv">0</span>].data_links()[<span class="dv">0</span>])<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(l2_first, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    head <span class="op">=</span> [<span class="bu">next</span>(f) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">15</span>)]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(head)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>LVIS L2A files have a number of lines as header as shown above. Let’s define a python function to read the number of header rows.</p>
+<div id="be85a7c9-f8a7-4d18-a38e-d0c78077eaa7" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_line_number(filename):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""find number of header rows in LVIS L2A"""</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> line.startswith(<span class="st">b'#'</span>):</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                columns <span class="op">=</span> line[<span class="dv">1</span>:].split()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> count, columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d15365fe-9d91-4f60-9992-d479da3da5c5" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>h_no, col_names <span class="op">=</span> get_line_number(l2_first)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(l2_first, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    l2a_df <span class="op">=</span> pd.read_csv(f, skiprows<span class="op">=</span>h_no, header<span class="op">=</span><span class="va">None</span>, engine<span class="op">=</span><span class="st">'python'</span>, sep<span class="op">=</span><span class="vs">r'\s+'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    l2a_df.columns <span class="op">=</span>  [x.decode() <span class="cf">for</span> x <span class="kw">in</span> col_names]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>l2a_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s print LVIS L2 variable names.</p>
+<div id="6973a6ce-6f02-46e0-ade4-a3b1c4187e2e" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>l2a_df.columns.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Key variables: - The <code>GLAT</code> and <code>GLON</code> variables provide coordinates of the lowest detected mode within the LVIS waveform. - The <code>RHXX</code> variables provide height above the lowest detected mode at which XX percentile of the waveform energy. - <code>RANGE</code> provides the distance from the instrument to the ground. - <code>SENSITIVITY</code> provides sensitivity metric for the return waveform. - <code>ZG</code>,<code>ZG_ALT1</code>, <code>ZG_ALT2</code>: Mean elevation of the lowest detected mode using alternate 1/2 mode detection settings. The alternative <code>ZG</code> to use to adjust the RH parameters for local site conditions.</p>
+<p>More information about the variables are provided in the <a href="https://nsidc.org/sites/default/files/lvisf2-v001-userguide_2_0.pdf">user guide</a>.</p>
+<p>Let’s select the particular shot we are interested in.</p>
+<div id="91043235-a863-4ea6-b04c-7d0af173fca9" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>l2a_shot_df <span class="op">=</span> l2a_df[l2a_df[<span class="st">'SHOTNUMBER'</span>] <span class="op">==</span> <span class="dv">1319816</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>l2a_shot_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can plot the RH metrics with elevation.</p>
+<div id="a268736c-410b-4258-9a40-b2ed47dfaa71" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>elev_zg <span class="op">=</span> l2a_shot_df.ZG.values[<span class="dv">0</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>elev_zh <span class="op">=</span> l2a_shot_df.ZH.values[<span class="dv">0</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>rh40 <span class="op">=</span> l2a_shot_df.RH40.values[<span class="dv">0</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>rh80 <span class="op">=</span> l2a_shot_df.RH80.values[<span class="dv">0</span>]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>rh100 <span class="op">=</span> l2a_shot_df.RH100.values[<span class="dv">0</span>]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>rh <span class="op">=</span> l2a_shot_df.<span class="bu">filter</span>(like <span class="op">=</span><span class="st">'RH'</span>).drop(<span class="st">'CHANNEL_RH'</span>, axis<span class="op">=</span><span class="dv">1</span>).values.tolist()[<span class="dv">0</span>]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">5</span>,<span class="dv">7</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>rh_vals <span class="op">=</span> l2a_shot_df.<span class="bu">filter</span>(like <span class="op">=</span> <span class="st">'RH'</span>).columns[:<span class="op">-</span><span class="dv">1</span>].<span class="bu">str</span>.strip(<span class="st">'RH'</span>).astype(<span class="bu">int</span>).tolist()</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>ax1.plot(rh_vals, elev_zg<span class="op">+</span>rh, alpha<span class="op">=</span><span class="fl">0.3</span>, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'RH metrics'</span> )</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>ax1.axhline(y<span class="op">=</span>elev_zg<span class="op">+</span>rh40,  color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'dotted'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'RH40'</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>ax1.axhline(y<span class="op">=</span>elev_zg<span class="op">+</span>rh80,  color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'-.'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'RH80'</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>ax1.axhline(y<span class="op">=</span>elev_zg<span class="op">+</span>rh100,  color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">'RH100'</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">"Percentile of waveform energy (%)"</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">"elevation (meters)"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>ax1.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plot-lvis-bioscape-campaigns" class="level2">
+<h2 class="anchored" data-anchor-id="plot-lvis-bioscape-campaigns">Plot LVIS Bioscape Campaigns</h2>
+<p>Lets first define two functions that we can use to plot the search results above over a basemap.</p>
+<div id="641274a9-6053-4471-b318-cef919c236e9" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_umm_geometry(gpoly):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""converts UMM geometry to multipolygons"""</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    multipolygons <span class="op">=</span> []</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> gl <span class="kw">in</span> gpoly:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        ltln <span class="op">=</span> gl[<span class="st">"Boundary"</span>][<span class="st">"Points"</span>]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        points <span class="op">=</span> [(p[<span class="st">"Longitude"</span>], p[<span class="st">"Latitude"</span>]) <span class="cf">for</span> p <span class="kw">in</span> ltln]</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        multipolygons.append(Polygon(points))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> MultiPolygon(multipolygons)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_list_gdf(datag):</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""converts List[] to geopandas dataframe"""</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create pandas dataframe from json</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.json_normalize([<span class="bu">vars</span>(granule)[<span class="st">'render_dict'</span>] <span class="cf">for</span> granule <span class="kw">in</span> datag])</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># keep only last string of the column names</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    df.columns<span class="op">=</span>df.columns.<span class="bu">str</span>.split(<span class="st">'.'</span>).<span class="bu">str</span>[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># convert polygons to multipolygonal geometry</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"geometry"</span>] <span class="op">=</span> df[<span class="st">"GPolygons"</span>].<span class="bu">apply</span>(convert_umm_geometry)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return geopandas dataframe</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gpd.GeoDataFrame(df, geometry<span class="op">=</span><span class="st">"geometry"</span>, crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we will convert the JSON return from the <code>earthaccess</code> granule search into a geopandas dataframe so we could plot over an ESRI basemap.</p>
+<div id="8a2bc61c-7f09-4f14-933a-85d080f1abd0" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> convert_list_gdf(l2)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>gdf[[<span class="st">'BeginningDateTime'</span>,<span class="st">'geometry'</span>]].explore(tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above shows the flight lines of all LVIS collection during the BioSCape campaign in 2023.</p>
+<section id="search-lvis-l2a-granules-over-a-study-area" class="level3">
+<h3 class="anchored" data-anchor-id="search-lvis-l2a-granules-over-a-study-area">Search LVIS L2A granules over a study area</h3>
+<p>The study area is <a href="https://plcnetwork.co.za/member/121/Brackenburn-Private-Nature-Reserve/">Brackenburn Private Nature Reserve</a>.</p>
+<div id="cdc84551-a715-4232-9160-ddec92a411b2" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>poly_f <span class="op">=</span> <span class="st">"assets/brackenburn.json"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>poly <span class="op">=</span> gpd.read_file(poly_f)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>poly.explore(tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr, style_kwds<span class="op">=</span>{<span class="st">'color'</span>:<span class="st">'red'</span>, <span class="st">'fill'</span>:<span class="va">False</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s search for LVIS L2A granules that are within the bounds of the study area.</p>
+<div id="958af12e-c8ad-436b-870b-3a42f88a9887" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>poly.geometry <span class="op">=</span> poly.geometry.<span class="bu">apply</span>(orient, args<span class="op">=</span>(<span class="dv">1</span>,))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># simplifying the polygon to bypass the coordinates </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># limit of the CMR with a tolerance of .005 degrees</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>xy <span class="op">=</span> poly.geometry.simplify(<span class="fl">0.005</span>).get_coordinates()</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>granules <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=-</span><span class="dv">1</span>, <span class="co"># needed to retrieve all granules</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    doi<span class="op">=</span><span class="st">"10.5067/VP7J20HJQISD"</span>, <span class="co"># LVIS L2A doi</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    temporal<span class="op">=</span>(<span class="st">"2023-10-01"</span>, <span class="st">"2023-11-30"</span>), <span class="co"># Bioscape campaign dates</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    polygon<span class="op">=</span><span class="bu">list</span>(<span class="bu">zip</span>(xy.x, xy.y))</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Granules found: </span><span class="sc">{</span><span class="bu">len</span>(granules)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s check when these LVIS flights were flown.</p>
+<div id="7808300e-57bd-4b09-9b9a-b31701adfe13" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> convert_list_gdf(granules)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'BeginningDateTime'</span>] <span class="op">=</span> pd.to_datetime(gdf[<span class="st">'BeginningDateTime'</span>])</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>gdf_daily <span class="op">=</span> gdf.resample(rule<span class="op">=</span><span class="st">'D'</span>, on<span class="op">=</span><span class="st">'BeginningDateTime'</span>)[<span class="st">'concept-id'</span>].nunique()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>gdf_daily.index <span class="op">=</span> pd.to_datetime(gdf_daily.index).date</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>gdf_daily.plot(kind<span class="op">=</span><span class="st">"bar"</span>, xlabel<span class="op">=</span><span class="st">"Day of Flight"</span>, ylabel<span class="op">=</span><span class="st">"No. of flights"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s plot these flight lines over a basemap.</p>
+<div id="a3173d5f-e580-4c0a-bf8e-9ef8234e8caa" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> gdf[[<span class="st">'BeginningDateTime'</span>,<span class="st">'geometry'</span>]].explore(tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr, </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                                              style_kwds<span class="op">=</span>{<span class="st">'fillOpacity'</span>:<span class="fl">0.1</span>})</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="download-l2-granules" class="level3">
+<h3 class="anchored" data-anchor-id="download-l2-granules">Download L2 granules</h3>
+<p>In the above section, we retrieved the overlapping granules using the <code>earthaccess</code> module, which we will also use to download the files.</p>
+<div id="16233465-aa03-4220-ad25-4ff9fac27ce3" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>downloaded_files <span class="op">=</span> earthaccess.download(granules, local_path<span class="op">=</span><span class="st">"downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Earthaccess download uses a parallel downloading feature so all the files are downloaded efficiently. It also avoids duplicated downloads if a file has already been downloaded previously to the local path.</p>
+</section>
+<section id="read-lvis-l2a-files" class="level3">
+<h3 class="anchored" data-anchor-id="read-lvis-l2a-files">Read LVIS L2A Files</h3>
+<p>Now, we can read the LVIS L2A files into a pandas dataframe.</p>
+<div id="0eb18f18-504e-461b-9d6c-f451d3941c59" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read the LVIS L2A files</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lvis_l2a <span class="op">=</span> []</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> gdf.index:</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> path.join(<span class="st">'downloads'</span>, path.basename(granules[s].data_links()[<span class="dv">0</span>]))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    h_no, col_names <span class="op">=</span> get_line_number(f)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    temp_df <span class="op">=</span> pd.read_csv(f, skiprows<span class="op">=</span>h_no, header<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                          engine<span class="op">=</span><span class="st">'python'</span>, sep<span class="op">=</span><span class="vs">r'\s+'</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    temp_df.columns <span class="op">=</span>  [x.decode() <span class="cf">for</span> x <span class="kw">in</span> col_names]</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    temp_gdf <span class="op">=</span> gpd.GeoDataFrame(temp_df, </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                                geometry<span class="op">=</span>gpd.points_from_xy(temp_df.GLON, </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                                                            temp_df.GLAT),</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                                crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    temp_sub <span class="op">=</span> gpd.sjoin(temp_gdf, poly, predicate<span class="op">=</span><span class="st">'within'</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> temp_sub.empty:</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Subsetting </span><span class="sc">{</span>path<span class="sc">.</span>basename(f)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        lvis_l2a.append(temp_sub)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>lvis_l2a_gdf <span class="op">=</span> pd.concat(lvis_l2a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="height-of-top-canopy" class="level3">
+<h3 class="anchored" data-anchor-id="height-of-top-canopy">Height of Top Canopy</h3>
+<p>Let’s plot RH100 (height of top canopy) values in a map.</p>
+<div id="557f62ec-95fc-4331-abeb-6a479110a81b" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>lvis_l2a_gdf[[<span class="st">'RH100'</span>, <span class="st">'geometry'</span>]].sample(frac<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">1</span>).explore(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RH100"</span>, cmap <span class="op">=</span> <span class="st">"YlGn"</span>, tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr, alpha<span class="op">=</span><span class="fl">0.5</span>, radius<span class="op">=</span><span class="dv">10</span>, legend<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="relative-height-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="relative-height-distribution">Relative Height Distribution</h3>
+<p>We can generate a plot of RH metrics to check if the vegetation height across the percentile of waveform energy indicates the same.</p>
+<div id="897d8c33-5920-4cc7-952c-5f16cf9f4c27" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">8</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> lvis_l2a_gdf.sample(frac<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">1</span>).<span class="bu">filter</span>(like<span class="op">=</span><span class="st">'RH'</span>).drop(<span class="st">'CHANNEL_RH'</span>, axis<span class="op">=</span><span class="dv">1</span>).T</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>plot_df.index <span class="op">=</span> plot_df.index.<span class="bu">str</span>.strip(<span class="st">'RH'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>std_df <span class="op">=</span> plot_df.std(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>median_df <span class="op">=</span> plot_df.median(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>median_df.plot(ax<span class="op">=</span>ax, alpha<span class="op">=</span><span class="fl">0.5</span>, style<span class="op">=</span><span class="st">'o-'</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>ax.fill_between(plot_df.index, median_df <span class="op">-</span> std_df, median_df <span class="op">+</span> std_df, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Percentile of waveform energy (%)"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Height (m)"</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="85818335-7cce-442f-a9f7-2f7e60c6cb29" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exporting </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># lvis_l2a_gdf.geometry.to_file('lvis2.geojson', driver="GeoJSON")</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># lvis_l2a_gdf.to_csv('lvis.csv')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="gedi-l2a-canopy-height-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="gedi-l2a-canopy-height-metrics">GEDI L2A Canopy Height Metrics</h2>
+<p>This section of the tutorial will demonstrate how to directly access and subset the GEDI L2A canopy height metrics using <a href="https://harmony.earthdata.nasa.gov">NASA’s Harmony Services</a> and compute a summary of aboveground biomass density for a forest reserve. The Harmony API allows seamless access and production of analysis-ready Earth observation data across different DAACs by enabling cloud-based spatial, temporal, and variable subsetting and data conversions. The GEDI datasets are available from the Harmony API.</p>
+<p>We will use NASA’s Harmony Services to retrieve the GEDI L2A dataset and canopy heights (<code>RH100</code>) for the burned and unburned plots . The Harmony API allows access to selected variables for the dataset within the spatial-temporal bounds without having to download the whole data file.</p>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>The GEDI Level 2A Geolocated Elevation and Height Metrics product <a href="https://doi.org/10.5067/GEDI/GEDI02_A.002">GEDI02_A</a> provides waveform interpretation and extracted products from eachreceived waveform, including ground elevation, canopy top height, and relative height (RH) metrics. GEDI datasets are available for the period starting 2019-04-17 and covers 52 N to 52 S latitudes. GEDI L2A data files are natively in HDF5 format.</p>
+</section>
+<section id="authentication-1" class="level3">
+<h3 class="anchored" data-anchor-id="authentication-1">Authentication</h3>
+<p>NASA Harmony API requires <a href="https://urs.earthdata.nasa.gov/">NASA Earthdata Login (EDL)</a>. You can use the <code>earthaccess</code> Python library to set up authentication. Alternatively, you can also login to <code>harmony_client</code> directly by passing EDL authentication as the following in the Jupyter Notebook itself:</p>
+<pre><code>harmony_client = Client(auth=("your EDL username", "your EDL password"))</code></pre>
+</section>
+<section id="create-harmony-client-object" class="level3">
+<h3 class="anchored" data-anchor-id="create-harmony-client-object">Create Harmony Client Object</h3>
+<p>First, we create a Harmony Client object. If you are passing the EDL authentication, please do as shown above with the auth parameter.</p>
+<div id="962e8a59-4348-4fcd-98d5-25964c7278f0" class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>harmony_client <span class="op">=</span> Client()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="retrieve-concept-id" class="level3">
+<h3 class="anchored" data-anchor-id="retrieve-concept-id">Retrieve Concept ID</h3>
+<p>Now, let’s retrieve the <code>Concept ID</code> of the GEDI L2A dataset. The <code>Concept ID</code> is NASA Earthdata’s unique ID for its dataset.</p>
+<div id="6da3b74b-d773-43d4-bb34-2f28a494ca69" class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_concept_id(doi):</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""get concept id from DOI using CMR API"""</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    doisearch <span class="op">=</span> <span class="ss">f'https://cmr.earthdata.nasa.gov/search/collections.json?doi=</span><span class="sc">{</span>doi<span class="sc">}</span><span class="ss">'</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> re.get(doisearch).json()[<span class="st">'feed'</span>][<span class="st">'entry'</span>][<span class="dv">0</span>][<span class="st">'id'</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>concept_l2a <span class="op">=</span> get_concept_id(<span class="st">'10.5067/GEDI/GEDI02_A.002'</span>) <span class="co"># GEDI L2A DOI</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>concept_l2a<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-request-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="define-request-parameters">Define Request Parameters</h3>
+<p>Let’s create a Harmony Collection object with the concept_id retrieved above. We will also define the GEDI L2A RH variables and temporal range.</p>
+<div id="60e89ce3-238a-4c61-a408-4b2dcdc280a5" class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># harmony collection</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>collection_l2a <span class="op">=</span> Collection(<span class="bu">id</span><span class="op">=</span>concept_l2a)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_var_names(variables):</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># gedi beams</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    beams <span class="op">=</span> [<span class="st">'BEAM0000'</span>, <span class="st">'BEAM0001'</span>, <span class="st">'BEAM0010'</span>, <span class="st">'BEAM0011'</span>, <span class="st">'BEAM0101'</span>, <span class="st">'BEAM0110'</span>, <span class="st">'BEAM1000'</span>, <span class="st">'BEAM1011'</span>]</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># combine variables and beam names</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="ss">f'/</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> b <span class="kw">in</span> beams <span class="cf">for</span> v <span class="kw">in</span> variables]</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># gedi variables</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>variables_l2a <span class="op">=</span> create_var_names([<span class="st">'rh'</span>, <span class="st">'quality_flag'</span>, <span class="st">'land_cover_data/pft_class'</span>])</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co"># time range</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>temporal_range <span class="op">=</span> {<span class="st">'start'</span>: datetime(<span class="dv">2019</span>, <span class="dv">4</span>, <span class="dv">17</span>), </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'stop'</span>: datetime(<span class="dv">2023</span>, <span class="dv">3</span>, <span class="dv">31</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-and-submit-harmony-request" class="level3">
+<h3 class="anchored" data-anchor-id="create-and-submit-harmony-request">Create and Submit Harmony Request</h3>
+<p>Now, we can create a Harmony request with variables, temporal range, and bounding box and submit the request using the Harmony client object. We will use the <code>download_all</code> method, which uses a multithreaded downloader and returns a <a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent future</a>. Futures are asynchronous and let us use the downloaded file as soon as the download is complete while other files are still being downloaded.</p>
+<div id="2503847e-61f5-40fd-999e-f619896c7949" class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> submit_harmony(collection, variables):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""submit harmony request"""</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    request <span class="op">=</span> Request(collection<span class="op">=</span>collection, </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                  variables<span class="op">=</span>variables, </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                  temporal<span class="op">=</span>temporal_range,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>                  shape<span class="op">=</span>poly_f,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>                  ignore_errors<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># submit harmony request, will return job id</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    subset_job_id <span class="op">=</span> harmony_client.submit(request)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> harmony_client.result_urls(subset_job_id, show_progress<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>                                      link_type<span class="op">=</span>LinkType.s3)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> submit_harmony(collection_l2a, variables_l2a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A temporary S3 Credentials is needed for read-only, same-region (<strong>us-west-2</strong>), direct access to S3 objects on the Earthdata cloud. We will use the credentials from the <code>harmony_client</code>.</p>
+<div id="e5fc04f6-ba53-4615-8e18-f8251111ebfe" class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>s3credentials <span class="op">=</span> harmony_client.aws_credentials()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will pass S3 credentials to <a href="https://s3fs.readthedocs.io/">S3Fs</a> class S3FileSystem.</p>
+<div id="de47707d-6375-4e19-95f5-e54271a917f9" class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fs_s3 <span class="op">=</span> s3fs.S3FileSystem(anon<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                          key<span class="op">=</span>s3credentials[<span class="st">'aws_access_key_id'</span>], </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                          secret<span class="op">=</span>s3credentials[<span class="st">'aws_secret_access_key'</span>], </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                          token<span class="op">=</span>s3credentials[<span class="st">'aws_session_token'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="read-subset-files" class="level3">
+<h3 class="anchored" data-anchor-id="read-subset-files">Read Subset files</h3>
+<p>First, we will define a python function to read the GEDI variables, which are organized in a hierarchical way.</p>
+<div id="ac970a81-5b36-45a9-986e-b41a3790d872" class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_gedi_vars(beam):</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""reads through gedi variable hierarchy"""</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    col_names <span class="op">=</span> []</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    col_val <span class="op">=</span> []</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># read all variables</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> beam.items():</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># check if the item is a group</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(value, h5py.Group):</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># looping through subgroups</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> key2, value2 <span class="kw">in</span> value.items():</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                col_names.append(key2)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>                col_val.append(value2[:].tolist())</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>            col_names.append(key)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>            col_val.append(value[:].tolist())</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col_names, col_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s direct access the subsetted h5 files and retrieve its values into the pandas dataframe.</p>
+<div id="723b3aeb-5ccc-4190-b075-03b571c9a664" class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define an empty pandas dataframe</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>subset_df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through the Harmony results</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s3_url <span class="kw">in</span> results:</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(s3_url)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> fs_s3.<span class="bu">open</span>(s3_url, mode<span class="op">=</span><span class="st">'rb'</span>) <span class="im">as</span> fh:</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> h5py.File(fh) <span class="im">as</span> l2a_in:</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> v <span class="kw">in</span> <span class="bu">list</span>(l2a_in.keys()):</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> v.startswith(<span class="st">'BEAM'</span>):</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>                    c_n, c_v <span class="op">=</span> read_gedi_vars(l2a_in[v])</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># Appending to the subset_df dataframe</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>                    subset_df <span class="op">=</span> pd.concat([subset_df, </span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>                                           pd.DataFrame(<span class="bu">map</span>(<span class="bu">list</span>, <span class="bu">zip</span>(<span class="op">*</span>c_v)), </span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>                                                        columns<span class="op">=</span>c_n)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s remove the duplicate columns, if any, and print the first two rows of the pandas dataframe.</p>
+<div id="4e46f321-4227-4024-aa60-11589dd4fcc4" class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove duplicate columns</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>subset_df <span class="op">=</span> subset_df.loc[:,<span class="op">~</span>subset_df.columns.duplicated()].copy()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>subset_df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rh-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="rh-metrics">RH metrics</h3>
+<p>Let’s first split the <code>rh</code> variables into different columns. There are a total of 101 steps of percentiles defined starting from 0 to 100%.</p>
+<div id="dbea7fe3-8114-40af-ad99-a5a6d916e06c" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create rh metrics column</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>rh <span class="op">=</span> []</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each percentile and create a RH column</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">101</span>):</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> pd.DataFrame({<span class="ss">f'RH</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>:subset_df[<span class="st">'rh'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[i])})</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    rh.append(y)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>rh <span class="op">=</span> pd.concat(rh, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate RH columns to the original dataframe</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>subset_df <span class="op">=</span> pd.concat([subset_df, rh], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># print the first row of dataframe</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>subset_df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="bb3a56b6-15a6-4783-942a-8dd18ad608b4" class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>gedi_gdf <span class="op">=</span> gpd.GeoDataFrame(subset_df, </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                                geometry<span class="op">=</span>gpd.points_from_xy(subset_df.lon_lowestmode, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                                                            subset_df.lat_lowestmode),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                                crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>gedi_sub <span class="op">=</span> gpd.sjoin(gedi_gdf, poly, predicate<span class="op">=</span><span class="st">'within'</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>gedi_sub[gedi_sub.quality_flag<span class="op">==</span><span class="dv">1</span>].explore(<span class="st">"RH100"</span>, cmap <span class="op">=</span> <span class="st">"YlGn"</span>, tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr, alpha<span class="op">=</span><span class="fl">0.5</span>, radius<span class="op">=</span><span class="dv">10</span>, legend<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5fbfe8cf-3ccd-45e0-9a75-3b011323e28c" class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">10</span>))</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> gedi_sub[gedi_sub.quality_flag<span class="op">==</span><span class="dv">1</span>].<span class="bu">filter</span>(like<span class="op">=</span><span class="st">'RH'</span>).T</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>plot_df.index <span class="op">=</span> plot_df.index.<span class="bu">str</span>.strip(<span class="st">'RH'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>plot_df.median(axis<span class="op">=</span><span class="dv">1</span>).plot(ax<span class="op">=</span>ax, alpha<span class="op">=</span><span class="fl">0.5</span>, style<span class="op">=</span><span class="st">'s:'</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Percentile of waveform energy (%)"</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Height (m)"</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="gedi-waveform-structural-complexity-index-wsci" class="level2">
+<h2 class="anchored" data-anchor-id="gedi-waveform-structural-complexity-index-wsci">GEDI Waveform Structural Complexity Index (WSCI)</h2>
+<p>GEDI WSCI product (<a href="https://daac.ornl.gov/GEDI/guides/GEDI_L4C_WSCI.html">GEDI L4C</a>) provides inference on forest structural complexity, which affects ecosystem functions, nutrient cycling, biodiversity, and habitat quality (<a href="https://www.nature.com/articles/s41467-024-52468-2">Tiago et al.&nbsp;2024</a>)</p>
+<div id="67a006b7-b2fe-4b86-9fb1-62f30966ba8f" class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>concept_l4c <span class="op">=</span> get_concept_id(<span class="st">'10.3334/ORNLDAAC/2338'</span>) <span class="co"># GEDI L4C DOI</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># harmony collection</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>collection_l4c <span class="op">=</span> Collection(<span class="bu">id</span><span class="op">=</span>concept_l4c)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># gedi variables</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>variables_l4c <span class="op">=</span> create_var_names([<span class="st">'wsci'</span>])</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># define an empty pandas dataframe</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>subset_df2 <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co"># submit harmony</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>results2 <span class="op">=</span> submit_harmony(collection_l4c, variables_l4c)</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through the Harmony results</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s3_url <span class="kw">in</span> results2:</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(s3_url)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> fs_s3.<span class="bu">open</span>(s3_url, mode<span class="op">=</span><span class="st">'rb'</span>) <span class="im">as</span> fh:</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> h5py.File(fh) <span class="im">as</span> l4c_in:</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> v <span class="kw">in</span> <span class="bu">list</span>(l4c_in.keys()):</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> v.startswith(<span class="st">'BEAM'</span>):</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>                    c_n, c_v <span class="op">=</span> read_gedi_vars(l4c_in[v])</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># Appending to the subset_df dataframe</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>                    subset_df2 <span class="op">=</span> pd.concat([subset_df2, </span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>                                           pd.DataFrame(<span class="bu">map</span>(<span class="bu">list</span>, <span class="bu">zip</span>(<span class="op">*</span>c_v)), </span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>                                                        columns<span class="op">=</span>c_n)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c11ccdab-df3a-4215-bc65-a1f96e955f9d" class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove duplicate columns</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>subset_df2 <span class="op">=</span> subset_df2.loc[:,<span class="op">~</span>subset_df2.columns.duplicated()].copy()</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>gedi_gdf2 <span class="op">=</span> gpd.GeoDataFrame(subset_df2, </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>                                geometry<span class="op">=</span>gpd.points_from_xy(subset_df2.lon_lowestmode, </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>                                                            subset_df2.lat_lowestmode),</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>                                crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>gedi_sub2 <span class="op">=</span> gpd.sjoin(gedi_gdf2, poly, predicate<span class="op">=</span><span class="st">'within'</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>gedi_sub2[gedi_sub2.quality_flag<span class="op">==</span><span class="dv">1</span>].explore(<span class="st">"WSCI"</span>, cmap <span class="op">=</span> <span class="st">"YlGn"</span>, tiles<span class="op">=</span>xyz, attr<span class="op">=</span>attr, alpha<span class="op">=</span><span class="fl">0.5</span>, radius<span class="op">=</span><span class="dv">10</span>, legend<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -822,7 +1449,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>NASA Openscapes (2025). BioSCape Workshop at BioSpace25</p>
-<div class="toc-actions"><ul><li><a href="https://github.dev/NASA-Openscapes/2025-biospace/blob/main/tutorials/lvis/lvis.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/NASA-Openscapes/2025-biospace/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/NASA-Openscapes/2025-biospace/blob/main/tutorials/lvis/lvis.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/NASA-Openscapes/2025-biospace/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
