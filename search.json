@@ -1,16 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "BioSCape Workshop at BioSpace25",
-    "section": "",
-    "text": "Workshop Description\nHarnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA’s BioSCAPE campaign\nMichele Thornton1, Rupesh Shrestha1, Erin Hestir2, Adam Wilson3, Jasper Slingsby4, Anabelle Cardoso3,4\n1Oak Ridge National Laboratory Distributed Active Archive Center; 2University of California, Merced; 3University at Buffalo; 4University of Cape Town\nIn October/November of 2023, the US National Aeronautics and Space Administration (NASA) conducted its first Biodiversity field and airborne campaign across terrestrial and aquatic environments in the South African Greater Cape Floristic Region (GCFR). From 4 airborne instruments (Airborne Visible-Infrared Imaging Spectrometer - Next Generation (AVIRIS-NG), Portable Remote Imaging SpectroMeter (PRISM), Hyperspectral Thermal Emission Spectrometer (HyTES), and Land, Vegetation, and Ice Sensor (LVIS)) the BioSCape Campaign’s remote sensing data products provides an unprecedented level of image spectroscopy from VSWIR to TIR wavelengths as well as full-waveform laser altimeter measurements. Airborne data are supplemented with a rich combination of contemporaneous biodiversity-relevant field observations toward an approach to measure and understand functional, phylogenetic, and taxonomic biological diversity as components of ecosystem function.\nA majority of the BioSCape Campaign data will be archived through the NASA-funded Oak Ridge National Laboratory Distributed Active Archive Center (ORNL DAAC). The discipline-specific Center provides dataset content to NASA’s Earthdata Cloud which includes a standardized metadata called Common Metadata Repository (CMR), data discovery, and open access.\nThis hands-on demonstration will leverage a managed cloud environment to show programmatic discovery, access, and analysis of NASA BioSCape data/resources and concurrent orbital data. Included will be content and tutorials demonstrating derivation of estimates of biodiversity variables including:\n\nAn overview of the BioSCape Campaign data acquisition\nNASA Earthdata Cloud: Search, Access, and Analysis Basics\nExplore BioSCape vegetation plot and image spectroscopy data\nInvasive species analysis from AVIRIS-NG and Vegetation Plot Data\nVegetation Structural Diversity derived from LVIS and GEDI full waveform lidar data.\nAquatic biodiversity estimates from PRISM, PACE, and EMIT\n\nGET STARTED:\n\nDeploy Jupyter Lab instance in 2i2c",
-    "crumbs": [
-      "Welcome",
-      "BioSCape Workshop at BioSpace25"
-    ]
-  },
-  {
     "objectID": "tutorials/prerequisites.html",
     "href": "tutorials/prerequisites.html",
     "title": "Prerequisites",
@@ -30,6 +19,17 @@
     "crumbs": [
       "Welcome",
       "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BioSCape Workshop at BioSpace25",
+    "section": "",
+    "text": "Workshop Description\nHarnessing analysis tools for biodiversity applications using field, airborne, and orbital remote sensing data from NASA’s BioSCAPE campaign\nMichele Thornton1, Rupesh Shrestha1, Erin Hestir2, Adam Wilson3, Jasper Slingsby4, Anabelle Cardoso3,4\n1Oak Ridge National Laboratory Distributed Active Archive Center; 2University of California, Merced; 3University at Buffalo; 4University of Cape Town\nIn October/November of 2023, the US National Aeronautics and Space Administration (NASA) conducted its first Biodiversity field and airborne campaign across terrestrial and aquatic environments in the South African Greater Cape Floristic Region (GCFR). From 4 airborne instruments (Airborne Visible-Infrared Imaging Spectrometer - Next Generation (AVIRIS-NG), Portable Remote Imaging SpectroMeter (PRISM), Hyperspectral Thermal Emission Spectrometer (HyTES), and Land, Vegetation, and Ice Sensor (LVIS)) the BioSCape Campaign’s remote sensing data products provides an unprecedented level of image spectroscopy from VSWIR to TIR wavelengths as well as full-waveform laser altimeter measurements. Airborne data are supplemented with a rich combination of contemporaneous biodiversity-relevant field observations toward an approach to measure and understand functional, phylogenetic, and taxonomic biological diversity as components of ecosystem function.\nA majority of the BioSCape Campaign data will be archived through the NASA-funded Oak Ridge National Laboratory Distributed Active Archive Center (ORNL DAAC). The discipline-specific Center provides dataset content to NASA’s Earthdata Cloud which includes a standardized metadata called Common Metadata Repository (CMR), data discovery, and open access.\nThis hands-on demonstration will leverage a managed cloud environment to show programmatic discovery, access, and analysis of NASA BioSCape data/resources and concurrent orbital data. Included will be content and tutorials demonstrating derivation of estimates of biodiversity variables including:\n\nAn overview of the BioSCape Campaign data acquisition\nNASA Earthdata Cloud: Search, Access, and Analysis Basics\nExplore BioSCape vegetation plot and image spectroscopy data\nInvasive species analysis from AVIRIS-NG and Vegetation Plot Data\nVegetation Structural Diversity derived from LVIS and GEDI full waveform lidar data.\nAquatic biodiversity estimates from PRISM, PACE, and EMIT\n\nGET STARTED:\n\nDeploy Jupyter Lab instance in 2i2c",
+    "crumbs": [
+      "Welcome",
+      "BioSCape Workshop at BioSpace25"
     ]
   },
   {
